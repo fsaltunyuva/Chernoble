@@ -1,12 +1,22 @@
 using TMPro;
 using UnityEngine;
 
+public enum SpawnPoint
+{
+    Top,
+    Bottom,
+    Left,
+    Right
+}
 public class Singleton : MonoBehaviour
 {
     public static Singleton Instance { get; private set; } // This is the instance of the Singleton class.
     
     [SerializeField] public int currency;
     [SerializeField] TextMeshProUGUI currencyText;
+    public SpawnPoint spawnPoint = SpawnPoint.Top;
+    public bool isInputEnabled = true;
+    public int previoslyLoadedSceneIndex = -1;
 
     private void Awake() 
     {

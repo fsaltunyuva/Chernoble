@@ -6,6 +6,36 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sandbox.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Base.unity
+    guid: 23fabc0c77641014a8d6f569aaf24b43
+  - enabled: 1
+    path: Assets/Scenes/Preset 1.unity
+    guid: 9d2fa29834373c2488f4b0015c1a048a
+  - enabled: 1
+    path: Assets/Scenes/Preset 2.unity
+    guid: 8ccd6ca58b6d77940879f8125a26d1c9
+  - enabled: 1
+    path: Assets/Scenes/Preset 3.unity
+    guid: f4454d56de60fd040bacdcd412bf7589
+  - enabled: 1
+    path: Assets/Scenes/Preset 4.unity
+    guid: fdaa2760957d0994181a6db43508e565
+  - enabled: 1
+    path: Assets/Scenes/Preset 5.unity
+    guid: 85497170ed2dfba45ba789a6e462dcde
+  - enabled: 1
+    path: Assets/Scenes/Preset 6.unity
+    guid: f813109c2f7141542a45c69d5788d17a
+  - enabled: 1
+    path: Assets/Scenes/Preset 7.unity
+    guid: 09170ed2c4f3a2747be855e067aef013
+  - enabled: 1
+    path: Assets/Scenes/Preset 8.unity
+    guid: 17e861e1f619f4b4780ba33a89090fb9
+  - enabled: 1
+    path: Assets/Scenes/Preset 9.unity
+    guid: 9cb697058a35f404b8bde9ce0fa99493
+  - enabled: 1
+    path: Assets/Scenes/Preset 10.unity
+    guid: 16f748f5a39e86c429e575505269602d
   m_configObjects: {}
