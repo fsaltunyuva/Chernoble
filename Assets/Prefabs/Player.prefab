@@ -556,7 +556,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 500
-<<<<<<< Updated upstream
   rightSpawnPoint: {fileID: 0}
   leftSpawnPoint: {fileID: 0}
   topSpawnPoint: {fileID: 0}
@@ -578,8 +577,6 @@ MonoBehaviour:
   _zoneDamageScript: {fileID: 0}
   blackScreen: {fileID: 0}
   fadeDuration: 2
-=======
->>>>>>> Stashed changes
 --- !u!50 &1787200743074556613
 Rigidbody2D:
   serializedVersion: 4

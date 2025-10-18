@@ -8,12 +8,8 @@ TagManager:
   - zone2
   - zone3
   - health
-<<<<<<< Updated upstream
   - middleCollider
   - teleporter
-=======
-  - door
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
