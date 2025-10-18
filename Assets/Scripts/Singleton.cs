@@ -15,7 +15,7 @@ public class Singleton : MonoBehaviour
     [SerializeField] public int currency;
     [SerializeField] TextMeshProUGUI currencyText;
     public SpawnPoint spawnPoint = SpawnPoint.Top;
-    public bool isInputEnabled = true;
+    public bool isMovementEnabled = true;
     public int previoslyLoadedSceneIndex = -1;
 
     private void Awake() 

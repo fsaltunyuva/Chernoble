@@ -11,7 +11,7 @@ public class SceneStarter : MonoBehaviour
     {
         blackScreen.DOFade(0, fadeDuration).OnComplete(() =>
         {
-            Singleton.Instance.isInputEnabled = true;
+            Singleton.Instance.isMovementEnabled = true;
         });
     }
 }

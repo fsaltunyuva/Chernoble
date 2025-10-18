@@ -26,7 +26,7 @@ public class Interactable : MonoBehaviour
                 else if (target.CompareTag("door"))
                 {
                     // TODO: Door crack sound effect
-                    Singleton.Instance.isInputEnabled = false;
+                    Singleton.Instance.isMovementEnabled = false;
                     switch (target.gameObject.name)
                     {
                         case "Top":

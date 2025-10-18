@@ -5,17 +5,22 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector2 _movement;
     private Animator _animator;
+    private SpriteRenderer spriteRenderer;
     [SerializeField] private float speed;
     
     [SerializeField] private Transform rightSpawnPoint;
     [SerializeField] private Transform leftSpawnPoint;
     [SerializeField] private Transform topSpawnPoint;
     [SerializeField] private Transform bottomSpawnPoint;
+
+    [SerializeField] private GameObject gun;
+    [SerializeField] private GameObject arm;
     
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         switch (Singleton.Instance.spawnPoint)
         {
@@ -36,14 +41,32 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        if (!Singleton.Instance.isInputEnabled)
+        if (!Singleton.Instance.isMovementEnabled)
         {
             _movement = Vector2.zero;
-            return;
         }
-        _movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        else
+        {
+            _movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        }
+        
+        if (Input.GetMouseButton(1)) // Holding right mouse button
+        {
+            Singleton.Instance.isMovementEnabled = false;
+            _animator.SetBool("gun", true);
+            gun.SetActive(true);
+            // TODO: Switch to gun mode
+        }
+        
+        if (Input.GetMouseButtonUp(1)) // Releasing right mouse button
+        {
+            // TODO: Switch to movement mode
+            Singleton.Instance.isMovementEnabled = true;
+            _animator.SetBool("gun", false);
+            gun.SetActive(false);
+        }
 
-        FlipSprite();
+        FlipSprite(_movement.x);
         
         if (_movement == Vector2.zero)
         {
@@ -55,12 +78,24 @@ public class Player : MonoBehaviour
         }
     }
     
-    private void FlipSprite()
+    // private void FlipSprite()
+    // {
+    //     if (_movement.x > 0)
+    //         transform.localScale = new Vector3(1, 1, 1);
+    //     else if (_movement.x < 0)
+    //         transform.localScale = new Vector3(-1, 1, 1);
+    // }
+
+    void FlipSprite(float moveX)
     {
-        if (_movement.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else if (_movement.x < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+        if (moveX > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (moveX < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     void FixedUpdate()
