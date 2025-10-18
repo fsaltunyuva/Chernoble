@@ -8,8 +8,8 @@ TagManager:
   - zone2
   - zone3
   - health
-  - rightCollider
-  - leftCollider
+  - middleCollider
+  - teleporter
   layers:
   - Default
   - TransparentFX

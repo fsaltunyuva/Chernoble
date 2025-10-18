@@ -45,14 +45,23 @@ public class Interactable : MonoBehaviour
                     blackScreen.DOFade(1, fadeDuration).OnComplete(() =>
                     {
                         Random rand = new Random();
-                        
+
                         int nextSceneIndex = rand.Next(1, SceneManager.sceneCountInBuildSettings);
-                        while(nextSceneIndex == Singleton.Instance.previoslyLoadedSceneIndex)
+                        while (nextSceneIndex == Singleton.Instance.previoslyLoadedSceneIndex)
                         {
                             nextSceneIndex = rand.Next(1, SceneManager.sceneCountInBuildSettings);
                         }
                         SceneManager.LoadScene(nextSceneIndex);
                     });
+                }
+                else if (target.CompareTag("teleporter"))
+                {
+                    Singleton.Instance.isInputEnabled = false;
+                    GameObject teleporter = target.transform.gameObject;
+                    GameObject teleportSlider = teleporter.transform.GetChild(0).gameObject;
+                    GameObject movingPart = teleportSlider.transform.GetChild(2).gameObject;
+                    teleportSlider.SetActive(true);
+                    movingPart.GetComponent<Teleport>().GetInteractedTeleporter(teleporter);
                 }
             }
         }
@@ -60,7 +69,7 @@ public class Interactable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("health") || other.CompareTag("door"))
+        if (other.CompareTag("health") || other.CompareTag("door") || other.CompareTag("teleporter"))
         {
             isInRange = true;
             target = other;
