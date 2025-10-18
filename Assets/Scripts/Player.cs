@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject gun;
     [SerializeField] private GameObject arm;
     
+    public bool isPlayerInGunMode = false;
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -55,15 +57,15 @@ public class Player : MonoBehaviour
             Singleton.Instance.isMovementEnabled = false;
             _animator.SetBool("gun", true);
             gun.SetActive(true);
-            // TODO: Switch to gun mode
+            isPlayerInGunMode = true;
         }
         
         if (Input.GetMouseButtonUp(1)) // Releasing right mouse button
         {
-            // TODO: Switch to movement mode
             Singleton.Instance.isMovementEnabled = true;
             _animator.SetBool("gun", false);
             gun.SetActive(false);
+            isPlayerInGunMode = false;
         }
 
         FlipSprite(_movement.x);
