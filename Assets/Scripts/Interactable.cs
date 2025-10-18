@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,11 +7,17 @@ using Random = System.Random;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] ZoneDamage _zoneDamageScript;
+    ZoneDamage _zoneDamageScript;
     private bool isInRange = false;
     private Collider2D target;
     [SerializeField] Image blackScreen;
     [SerializeField] private float fadeDuration = 5f;
+    [SerializeField] private GameObject marketCanvas;
+
+    private void Start()
+    {
+        _zoneDamageScript = GetComponent<ZoneDamage>();
+    }
 
     void Update()
     {
@@ -23,25 +30,41 @@ public class Interactable : MonoBehaviour
                     Destroy(target.gameObject);
                     _zoneDamageScript.AddHealth(30);
                 }
+                else if (target.CompareTag("market"))
+                {
+                    if (!Singleton.Instance.isMarketCanvasOn)
+                    {
+                        marketCanvas.SetActive(true);
+                        Singleton.Instance.isMarketCanvasOn = true;
+                        Singleton.Instance.isMovementEnabled = false;
+                    }
+                    else
+                    {
+                        marketCanvas.SetActive(false);
+                        Singleton.Instance.isMarketCanvasOn = false;
+                        Singleton.Instance.isMovementEnabled = true;
+                    }
+
+                }
                 else if (target.CompareTag("door"))
                 {
                     // TODO: Door crack sound effect
                     Singleton.Instance.isMovementEnabled = false;
-                    switch (target.gameObject.name)
-                    {
-                        case "Top":
-                            Singleton.Instance.spawnPoint = SpawnPoint.Top;
-                            break;
-                        case "Bottom":
-                            Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
-                            break;
-                        case "Left":
-                            Singleton.Instance.spawnPoint = SpawnPoint.Left;
-                            break;
-                        case "Down":
-                            Singleton.Instance.spawnPoint = SpawnPoint.Right;
-                            break;
-                    }
+                    // switch (target.gameObject.name)
+                    // {
+                    //     case "Top":
+                    //         Singleton.Instance.spawnPoint = SpawnPoint.Top;
+                    //         break;
+                    //     case "Bottom":
+                    //         Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
+                    //         break;
+                    //     case "Left":
+                    //         Singleton.Instance.spawnPoint = SpawnPoint.Left;
+                    //         break;
+                    //     case "Down":
+                    //         Singleton.Instance.spawnPoint = SpawnPoint.Right;
+                    //         break;
+                    // }
                     blackScreen.DOFade(1, fadeDuration).OnComplete(() =>
                     {
                         Random rand = new Random();
@@ -69,7 +92,7 @@ public class Interactable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("health") || other.CompareTag("door") || other.CompareTag("teleporter"))
+        if (other.CompareTag("health") || other.CompareTag("door") || other.CompareTag("teleporter") || other.CompareTag("market"))
         {
             isInRange = true;
             target = other;
@@ -80,6 +103,11 @@ public class Interactable : MonoBehaviour
     {
         if (other == target)
         {
+            if(target.CompareTag("market"))
+            {
+                marketCanvas.SetActive(false);
+                Singleton.Instance.isMovementEnabled = true;
+            }
             isInRange = false;
             target = null;
         }

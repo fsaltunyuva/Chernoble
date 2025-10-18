@@ -18,9 +18,10 @@ public class Singleton : MonoBehaviour
     [SerializeField] public int maxAmmo;
     [SerializeField] TextMeshProUGUI currencyText;
     [SerializeField] TextMeshProUGUI ammoText;
-    public SpawnPoint spawnPoint = SpawnPoint.Top;
+    // public SpawnPoint spawnPoint = SpawnPoint.Top;
     public bool isMovementEnabled = true;
     public int previoslyLoadedSceneIndex = -1;
+    public bool isMarketCanvasOn = false;
 
     private void Awake() 
     {

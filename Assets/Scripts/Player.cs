@@ -8,10 +8,11 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField] private float speed;
     
-    [SerializeField] private Transform rightSpawnPoint;
-    [SerializeField] private Transform leftSpawnPoint;
-    [SerializeField] private Transform topSpawnPoint;
-    [SerializeField] private Transform bottomSpawnPoint;
+    // Can be used for more maps
+    // [SerializeField] private Transform rightSpawnPoint;
+    // [SerializeField] private Transform leftSpawnPoint;
+    // [SerializeField] private Transform topSpawnPoint;
+    // [SerializeField] private Transform bottomSpawnPoint;
 
     [SerializeField] private GameObject gun;
     [SerializeField] private GameObject arm;
@@ -26,21 +27,21 @@ public class Player : MonoBehaviour
         Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
         Singleton.Instance.UpdateAmmoText();
 
-        switch (Singleton.Instance.spawnPoint)
-        {
-            case SpawnPoint.Right:
-                transform.position = rightSpawnPoint.position;
-                break;
-            case SpawnPoint.Left:
-                transform.position = leftSpawnPoint.position;
-                break;
-            case SpawnPoint.Top:
-                transform.position = topSpawnPoint.position;
-                break;
-            case SpawnPoint.Bottom:
-                transform.position = bottomSpawnPoint.position;
-                break;
-        }
+        // switch (Singleton.Instance.spawnPoint)
+        // {
+        //     case SpawnPoint.Right:
+        //         transform.position = rightSpawnPoint.position;
+        //         break;
+        //     case SpawnPoint.Left:
+        //         transform.position = leftSpawnPoint.position;
+        //         break;
+        //     case SpawnPoint.Top:
+        //         transform.position = topSpawnPoint.position;
+        //         break;
+        //     case SpawnPoint.Bottom:
+        //         transform.position = bottomSpawnPoint.position;
+        //         break;
+        // }
     }
     
     void Update()
