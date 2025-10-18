@@ -1,21 +1,25 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Teleport : MonoBehaviour
 {
-    // [SerializeField] GameObject teleportSlider;
     [SerializeField] GameObject stopPoint;
     [SerializeField] GameObject movingPart;
     public bool isSuccessful = false;
 
     [SerializeField] float moveDistance;
     [SerializeField] float moveDuration;
-    Tween tween;
+
 
     private bool isInRange = false;
     private Collider2D target;
 
     GameObject teleporter;
+    GameObject player;
+
+    [SerializeField] Image blackScreen;
+    [SerializeField] private float fadeDuration = 2.5f;
 
     void Start()
     {
@@ -31,6 +35,13 @@ public class Teleport : MonoBehaviour
                 isSuccessful = true;
                 Debug.Log("success!");
                 Singleton.Instance.isMovementEnabled = true;
+
+                Sequence seq = DOTween.Sequence();
+
+                seq.Append(blackScreen.DOFade(1, fadeDuration));
+                seq.AppendCallback(() => player.transform.position = new Vector3(1.07f, -0.97f, 0f));
+                seq.Append(blackScreen.DOFade(0, fadeDuration));
+
                 Destroy(teleporter);
             }
         }
@@ -43,9 +54,10 @@ public class Teleport : MonoBehaviour
         }
     }
 
-    public void GetInteractedTeleporter(GameObject obj)
+    public void GetInteractedTeleporter(GameObject obj, GameObject playerGameObject)
     {
         teleporter = obj;
+        player = playerGameObject;
     }
 
     void StartCursorMove()

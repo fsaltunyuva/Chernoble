@@ -61,7 +61,7 @@ public class Interactable : MonoBehaviour
                     GameObject teleportSlider = teleporter.transform.GetChild(0).gameObject;
                     GameObject movingPart = teleportSlider.transform.GetChild(2).gameObject;
                     teleportSlider.SetActive(true);
-                    movingPart.GetComponent<Teleport>().GetInteractedTeleporter(teleporter);
+                    movingPart.GetComponent<Teleport>().GetInteractedTeleporter(teleporter, this.gameObject);
                 }
             }
         }
