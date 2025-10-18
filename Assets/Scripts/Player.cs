@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
+        Singleton.Instance.UpdateAmmoText();
 
         switch (Singleton.Instance.spawnPoint)
         {

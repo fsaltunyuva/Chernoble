@@ -86,9 +86,9 @@ public class PlayerAimWeapon : MonoBehaviour
     
     void HandleShooting()
     {
-        if (Input.GetMouseButtonDown(0) && _playerScript.isPlayerInGunMode)
+        if (Singleton.Instance.IsThereEnoughAmmo(1) && Input.GetMouseButtonDown(0) && _playerScript.isPlayerInGunMode)
         {
-            //animator.SetTrigger("shot");
+            // TODO: Play click sfx when there is no ammo left
             animator.CrossFadeInFixedTime("Gun Shot Animation", 0f);
             ShootBullet();
         }
@@ -100,8 +100,8 @@ public class PlayerAimWeapon : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            if (rb != null)
-                rb.velocity = firePoint.right * bulletSpeed;
+            rb.velocity = firePoint.right * bulletSpeed;
+            Singleton.Instance.SpendAmmo(1);
         }
     }
 }
