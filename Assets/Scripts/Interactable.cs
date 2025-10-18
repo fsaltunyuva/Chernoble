@@ -56,7 +56,7 @@ public class Interactable : MonoBehaviour
                 }
                 else if (target.CompareTag("teleporter"))
                 {
-                    Singleton.Instance.isInputEnabled = false;
+                    Singleton.Instance.isMovementEnabled = false;
                     GameObject teleporter = target.transform.gameObject;
                     GameObject teleportSlider = teleporter.transform.GetChild(0).gameObject;
                     GameObject movingPart = teleportSlider.transform.GetChild(2).gameObject;

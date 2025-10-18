@@ -30,7 +30,7 @@ public class Teleport : MonoBehaviour
             {
                 isSuccessful = true;
                 Debug.Log("success!");
-                Singleton.Instance.isInputEnabled = true;
+                Singleton.Instance.isMovementEnabled = true;
                 Destroy(teleporter);
             }
         }
@@ -38,7 +38,7 @@ public class Teleport : MonoBehaviour
         {
             isSuccessful = false;
             Debug.Log("fail!");
-            Singleton.Instance.isInputEnabled = true;
+            Singleton.Instance.isMovementEnabled = true;
             Destroy(teleporter);
         }
     }
