@@ -39,6 +39,8 @@ public class ZoneDamage : MonoBehaviour
     public void AddHealth(int healthAmount)
     {
         if (health + healthAmount >= 0) health += healthAmount;
+        else if (health > 100) health = 100;
+        
         slider.value = health;
         Debug.Log("current health: " + health);
     }
