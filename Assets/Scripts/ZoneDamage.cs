@@ -7,29 +7,37 @@ public class ZoneDamage : MonoBehaviour
     [SerializeField] private int healthDecreaseMultiplier1;
     [SerializeField] private int healthDecreaseMultiplier2;
     [SerializeField] private int healthDecreaseMultiplier3;
+    [SerializeField] private int healthDecreaseMultiplier4;
     private float health = 100f;
     [SerializeField] Slider slider;
 
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("zone1"))
+        if (other.CompareTag("greenZone"))
         {
             health -= healthDecreaseMultiplier1 * Time.deltaTime;
             Debug.Log("health: " + health);
             if (health < 0) health = 0;
             slider.value = health;
         }
-        else if (other.CompareTag("zone2"))
+        else if (other.CompareTag("blueZone"))
         {
             health -= healthDecreaseMultiplier2 * Time.deltaTime;
             Debug.Log("health: " + health);
             if (health < 0) health = 0;
             slider.value = health;
         }
-        else if (other.CompareTag("zone3"))
+        else if (other.CompareTag("redZone"))
         {
             health -= healthDecreaseMultiplier3 * Time.deltaTime;
+            Debug.Log("health: " + health);
+            if (health < 0) health = 0;
+            slider.value = health;
+        }
+        else if (other.CompareTag("purpleZone"))
+        {
+            health -= healthDecreaseMultiplier4 * Time.deltaTime;
             Debug.Log("health: " + health);
             if (health < 0) health = 0;
             slider.value = health;

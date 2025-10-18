@@ -4,14 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - zone1
-  - zone2
-  - zone3
   - health
   - middleCollider
   - teleporter
   - door
   - camera boundary
+  - greenZone
+  - blueZone
+  - redZone
+  - purpleZone
   layers:
   - Default
   - TransparentFX
