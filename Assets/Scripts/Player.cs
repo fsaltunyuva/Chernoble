@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private Vector2 _movement;
+    private Animator _animator;
     [SerializeField] private float speed;
     
     [SerializeField] private Transform rightSpawnPoint;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
 
         switch (Singleton.Instance.spawnPoint)
         {
@@ -40,6 +42,25 @@ public class Player : MonoBehaviour
             return;
         }
         _movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        FlipSprite();
+        
+        if (_movement == Vector2.zero)
+        {
+            _animator.SetBool("run", false);
+        }
+        else
+        {
+            _animator.SetBool("run", true);
+        }
+    }
+    
+    private void FlipSprite()
+    {
+        if (_movement.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (_movement.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
 
     void FixedUpdate()
