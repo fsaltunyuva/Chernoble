@@ -8,6 +8,8 @@ TagManager:
   - zone2
   - zone3
   - health
+  - rightCollider
+  - leftCollider
   layers:
   - Default
   - TransparentFX
