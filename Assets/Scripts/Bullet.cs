@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,10 +10,9 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, lifeTime); // 2 saniye sonra yok olsun
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        // Burada düşmana çarpınca bir şey yapmak istersen ekleyebilirsin
-        
-        //Destroy(gameObject);
+        if(!other.gameObject.CompareTag("camera boundary"))
+            Destroy(gameObject);
     }
 }

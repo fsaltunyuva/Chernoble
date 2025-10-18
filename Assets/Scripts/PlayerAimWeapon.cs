@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAimWeapon : MonoBehaviour
@@ -16,11 +14,17 @@ public class PlayerAimWeapon : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer; // Player'ın SpriteRenderer'ı
     
     [SerializeField] private SpriteRenderer gunSpriteRenderer; // Silahın SpriteRenderer'ı
-    
+    private Player _playerScript;
+
+    private void Start()
+    {
+        _playerScript = GetComponent<Player>();
+    }
+
     void Update()
     {
         HandleAiming();
-        HandelShooting();
+        HandleShooting();
     }
 
     void HandleAiming()
@@ -80,11 +84,11 @@ public class PlayerAimWeapon : MonoBehaviour
         // }
     }
     
-    void HandelShooting()
+    void HandleShooting()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Singleton.Instance.IsThereEnoughAmmo(1) && Input.GetMouseButtonDown(0) && _playerScript.isPlayerInGunMode)
         {
-            //animator.SetTrigger("shot");
+            // TODO: Play click sfx when there is no ammo left
             animator.CrossFadeInFixedTime("Gun Shot Animation", 0f);
             ShootBullet();
         }
@@ -96,8 +100,8 @@ public class PlayerAimWeapon : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            if (rb != null)
-                rb.velocity = firePoint.right * bulletSpeed;
+            rb.velocity = firePoint.right * bulletSpeed;
+            Singleton.Instance.SpendAmmo(1);
         }
     }
 }

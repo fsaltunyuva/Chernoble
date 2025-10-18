@@ -11,6 +11,7 @@ TagManager:
   - middleCollider
   - teleporter
   - door
+  - camera boundary
   layers:
   - Default
   - TransparentFX
