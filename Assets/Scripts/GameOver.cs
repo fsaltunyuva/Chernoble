@@ -5,7 +5,7 @@ public class GameOver : MonoBehaviour
 {
     public void RestartGame()
     {
-        Singleton.Instance.ResetValues();
+        // Singleton.Instance.ResetValues();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -34,15 +34,17 @@ public class Singleton : MonoBehaviour
 
     private void Awake() 
     {
-        if (Instance != null && Instance != this) // If there is an instance, and it's not me, delete myself. 
-        { 
-            Destroy(gameObject); 
-        } 
-        else // Otherwise, set the instance to me and don't destroy me.
-        { 
-            Instance = this; 
-            DontDestroyOnLoad(gameObject); // This will keep the Singleton object alive between scenes.
-        } 
+        // TODO: Uncomment this if you add new scenes to the game.
+        // if (Instance != null && Instance != this) // If there is an instance, and it's not me, delete myself. 
+        // { 
+        //     Destroy(gameObject); 
+        // } 
+        // else // Otherwise, set the instance to me and don't destroy me.
+        // { 
+        //     Instance = this; 
+        //     DontDestroyOnLoad(gameObject); // This will keep the Singleton object alive between scenes.
+        // } 
+        Instance = this;
     }
 
     private void Start()
