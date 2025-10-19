@@ -14,6 +14,9 @@ public class Market : MonoBehaviour
     [SerializeField] private ZoneDamage _zoneDamageScript;
     
     [SerializeField] private Light2D playerLight;
+    
+    [SerializeField] private AudioClip purchaseSoundEffect;
+    [SerializeField] private AudioSource audioSource;
      
     public void TryToBuyItem()
     {
@@ -22,8 +25,6 @@ public class Market : MonoBehaviour
         if (selectedButton != null)
         {
             Item selectedItem = selectedButton.GetComponent<Item>();
-            // TODO: Play buy sound effect
-            
             if (Singleton.Instance.currency >= selectedItem.cost)
             {
                 switch (selectedItem.type)
@@ -58,6 +59,8 @@ public class Market : MonoBehaviour
                 }
                 Singleton.Instance.SpendCurrency(selectedItem.cost);
                 selectedButton.GetComponent<Button>().interactable = false;
+                // Play one shot sound effect for successful purchase
+                AudioSource.PlayClipAtPoint(purchaseSoundEffect, Camera.main.transform.position);
             }
         }
     }
