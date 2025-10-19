@@ -18,6 +18,10 @@ public class PlayerAimWeapon : MonoBehaviour
     private Player _playerScript;
 
     [SerializeField] private float flareDistanceDelay = 1.25f;
+    
+    
+    [SerializeField] private Transform ak47FirePoint;
+    [SerializeField] private Transform ak47aimTransform;
 
     private void Start()
     {
@@ -98,5 +102,13 @@ public class PlayerAimWeapon : MonoBehaviour
             bulletScript.StartCoroutine(bulletScript.SetFlareVelocityToZeroAfterDelay(0.5f));
             Singleton.Instance.SpendAmmo(1, true);
         }
+    }
+    
+    public void UpgradeToAK47()
+    {
+        // Singleton.Instance.currentWeapon = WeaponType.AK47;
+        
+        firePoint = ak47FirePoint;
+        aimTransform = ak47aimTransform;
     }
 }

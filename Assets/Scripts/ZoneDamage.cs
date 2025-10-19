@@ -103,6 +103,12 @@ public class ZoneDamage : MonoBehaviour
             playerTransform.DOShakePosition(0.2f, 0.1f, 10, 90, false, true);
         }
     }
-
+    
+    public void SetMaxHealth(int value)
+    {
+        health = value;
+        slider.maxValue = value;
+        slider.value = health;
+    }
 
 }

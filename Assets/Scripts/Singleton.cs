@@ -31,6 +31,7 @@ public class Singleton : MonoBehaviour
     public int previoslyLoadedSceneIndex = -1;
     public bool isMarketCanvasOn = false;
     public WeaponType currentWeapon = WeaponType.Glock;
+    public int playerDamage = 10;
 
     private void Awake() 
     {

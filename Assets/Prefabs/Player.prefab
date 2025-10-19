@@ -547,10 +547,10 @@ GameObject:
   - component: {fileID: 2603784917515057422}
   - component: {fileID: 6665770966835751478}
   - component: {fileID: 2598632544888531635}
+  - component: {fileID: 1582563103457110816}
   - component: {fileID: 1787200743074556613}
   - component: {fileID: 4478518177333687556}
   - component: {fileID: 4921426318553671305}
-  - component: {fileID: 1582563103457110816}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -645,9 +645,16 @@ MonoBehaviour:
   leftSpawnPoint: {fileID: 0}
   topSpawnPoint: {fileID: 0}
   bottomSpawnPoint: {fileID: 0}
+  rightExitSpawnPoint: {fileID: 0}
+  leftExitSpawnPoint: {fileID: 0}
+  topExitSpawnPoint: {fileID: 0}
+  bottomExitSpawnPoint: {fileID: 0}
   gun: {fileID: 8998273649020579691}
   arm: {fileID: 1974657147695439483}
   isPlayerInGunMode: 0
+  FlareGunSprite: {fileID: 0}
+  GlockGunSprite: {fileID: 0}
+  gunSpriteRenderer: {fileID: 0}
 --- !u!114 &2598632544888531635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,9 +667,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0df101971913141b8bbbdb43a3845a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zoneDamageScript: {fileID: 0}
   blackScreen: {fileID: 0}
   fadeDuration: 2
+  marketCanvas: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+--- !u!114 &1582563103457110816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8804353537243648638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaaf04c853deb0f4fbb4443454d45151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aimTransform: {fileID: 8554642217673911467}
+  animator: {fileID: 5382537206953829171}
+  aimSmoothSpeed: 4
+  bulletPrefab: {fileID: 4459703395822705813, guid: 1bd0bce1b23490f4ebee65906fa8cf7d, type: 3}
+  flareBulletPrefab: {fileID: 0}
+  firePoint: {fileID: 6451440754489181133}
+  bulletSpeed: 10
+  spriteRenderer: {fileID: 2603784917515057422}
+  gunSpriteRenderer: {fileID: 6376376500547645649}
+  flareDistanceDelay: 1.25
 --- !u!50 &1787200743074556613
 Rigidbody2D:
   serializedVersion: 4
@@ -756,26 +786,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1582563103457110816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8804353537243648638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaaf04c853deb0f4fbb4443454d45151, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimTransform: {fileID: 8554642217673911467}
-  animator: {fileID: 5382537206953829171}
-  aimSmoothSpeed: 4
-  bulletPrefab: {fileID: 4459703395822705813, guid: 1bd0bce1b23490f4ebee65906fa8cf7d, type: 3}
-  firePoint: {fileID: 6451440754489181133}
-  bulletSpeed: 10
-  spriteRenderer: {fileID: 2603784917515057422}
-  gunSpriteRenderer: {fileID: 6376376500547645649}
 --- !u!1 &8998273649020579691
 GameObject:
   m_ObjectHideFlags: 0
