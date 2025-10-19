@@ -16,66 +16,77 @@ public class ZoneDamage : MonoBehaviour
     [SerializeField] Image bloodyScreen;
     [SerializeField] private float fadeDuration = 1f;
 
+    [Header("Player Feedback")]
+    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private Transform playerTransform;
 
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("greenZone"))
-        {
-            health -= healthDecreaseMultiplier1 * Time.deltaTime;
-            Debug.Log("health: " + health);
-            if (health < 0) health = 0;
-            slider.value = health;
-            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
-        }
+            ApplyZoneDamage(healthDecreaseMultiplier1);
         else if (other.CompareTag("blueZone"))
-        {
-            health -= healthDecreaseMultiplier2 * Time.deltaTime;
-            Debug.Log("health: " + health);
-            if (health < 0) health = 0;
-            slider.value = health;
-            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
-        }
+            ApplyZoneDamage(healthDecreaseMultiplier2);
         else if (other.CompareTag("redZone"))
-        {
-            health -= healthDecreaseMultiplier3 * Time.deltaTime;
-            Debug.Log("health: " + health);
-            if (health < 0) health = 0;
-            slider.value = health;
-            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
-        }
+            ApplyZoneDamage(healthDecreaseMultiplier3);
         else if (other.CompareTag("purpleZone"))
+            ApplyZoneDamage(healthDecreaseMultiplier4);
+
+        if (other.CompareTag("enemy"))
         {
-            health -= healthDecreaseMultiplier4 * Time.deltaTime;
-            Debug.Log("health: " + health);
-            if (health < 0) health = 0;
-            slider.value = health;
-            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
+            ApplyZoneDamage(enemyDamageMultiplier);
+            PlayDamageFeedback();
         }
-        
-        if(other.CompareTag("enemy"))
-        {
-            health -= enemyDamageMultiplier * Time.deltaTime;
-            if (health < 0) health = 0;
-            slider.value = health;
-            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
-        }
+    }
+
+    private void ApplyZoneDamage(float amount)
+    {
+        health -= amount * Time.deltaTime;
+        if (health < 0) health = 0;
+        slider.value = health;
+        bloodyScreen.DOFade((100 - health) / 100f, fadeDuration);
+        Debug.Log("health: " + health);
     }
 
     public void AddHealth(int healthAmount)
     {
-        if (health + healthAmount >= 0) health += healthAmount;
-        else if (health > 100) health = 100;
-
+        health += healthAmount;
+        if (health > 100) health = 100;
         slider.value = health;
-        bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
+        bloodyScreen.DOFade((100 - health) / 100f, fadeDuration);
         Debug.Log("current health: " + health);
     }
-    
+
     public void SetHealth(int healthAmount)
     {
         health = healthAmount;
         slider.value = health;
-        bloodyScreen.DOFade((100 - health) / 100, 0);
+        bloodyScreen.DOFade((100 - health) / 100f, 0);
     }
+
+    private bool isTakingDamage = false;
+
+    private void PlayDamageFeedback()
+    {
+        if (isTakingDamage) return;
+
+        if (playerSprite != null)
+        {
+            isTakingDamage = true;
+            Color originalColor = playerSprite.color;
+            Color flashColor = new Color(1f, 0.4f, 0.4f, 1f); // soluk kırmızı
+            playerSprite.color = flashColor;
+            DOVirtual.DelayedCall(0.15f, () => 
+            {
+                playerSprite.color = originalColor;
+                isTakingDamage = false;
+            });
+        }
+
+        if (playerTransform != null)
+        {
+            playerTransform.DOShakePosition(0.2f, 0.1f, 10, 90, false, true);
+        }
+    }
+
 
 }
