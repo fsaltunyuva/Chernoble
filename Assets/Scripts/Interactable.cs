@@ -67,6 +67,8 @@ public class Interactable : MonoBehaviour
                             seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
                             seq.AppendCallback(() => transform.position = GetComponent<Player>().topExitSpawnPoint.position);
                             seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
+                            Singleton.Instance.UpdateAmmoText();
                             break;
                         case "Bottom":
                             seq.Append(blackScreen.DOFade(1, fadeDuration));
@@ -80,6 +82,8 @@ public class Interactable : MonoBehaviour
                             seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
                             seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomExitSpawnPoint.position);
                             seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
+                            Singleton.Instance.UpdateAmmoText();
                             // Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
                             break;
                         case "Left":
@@ -94,6 +98,8 @@ public class Interactable : MonoBehaviour
                             seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
                             seq.AppendCallback(() => transform.position = GetComponent<Player>().leftExitSpawnPoint.position);
                             seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
+                            Singleton.Instance.UpdateAmmoText();
                             // Singleton.Instance.spawnPoint = SpawnPoint.Left;
                             break;
                         case "Right":
@@ -108,6 +114,8 @@ public class Interactable : MonoBehaviour
                             seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
                             seq.AppendCallback(() => transform.position = GetComponent<Player>().rightExitSpawnPoint.position);
                             seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
+                            Singleton.Instance.UpdateAmmoText();
                             // Singleton.Instance.spawnPoint = SpawnPoint.Left;
                             break;
                         case "Down":
@@ -122,6 +130,8 @@ public class Interactable : MonoBehaviour
                             seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomExitSpawnPoint.position);
                             seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
                             seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
+                            Singleton.Instance.UpdateAmmoText();
                             // Singleton.Instance.spawnPoint = SpawnPoint.Right;
                             break;
                     }

@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 public class Market : MonoBehaviour
 {
+    [SerializeField] private int increasedAmmoAmount = 40;
+    
     public void TryToBuyItem()
     {
         GameObject selectedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-
+        
         if (selectedButton != null)
         {
             Item selectedItem = selectedButton.GetComponent<Item>();
@@ -16,6 +18,9 @@ public class Market : MonoBehaviour
                 switch (selectedItem.type)
                 {
                     case ItemType.Ammo:
+                        Singleton.Instance.maxAmmo = increasedAmmoAmount;
+                        Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
+                        Singleton.Instance.UpdateAmmoText();
                         break;
                     case ItemType.Gun:
                         break;
