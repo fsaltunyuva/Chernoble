@@ -13,6 +13,9 @@ public class ZoneDamage : MonoBehaviour
     private float health = 100f;
     [SerializeField] Slider slider;
 
+    [SerializeField] Image bloodyScreen;
+    [SerializeField] private float fadeDuration = 1f;
+
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -22,6 +25,7 @@ public class ZoneDamage : MonoBehaviour
             Debug.Log("health: " + health);
             if (health < 0) health = 0;
             slider.value = health;
+            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
         }
         else if (other.CompareTag("blueZone"))
         {
@@ -29,6 +33,7 @@ public class ZoneDamage : MonoBehaviour
             Debug.Log("health: " + health);
             if (health < 0) health = 0;
             slider.value = health;
+            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
         }
         else if (other.CompareTag("redZone"))
         {
@@ -36,6 +41,7 @@ public class ZoneDamage : MonoBehaviour
             Debug.Log("health: " + health);
             if (health < 0) health = 0;
             slider.value = health;
+            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
         }
         else if (other.CompareTag("purpleZone"))
         {
@@ -43,6 +49,7 @@ public class ZoneDamage : MonoBehaviour
             Debug.Log("health: " + health);
             if (health < 0) health = 0;
             slider.value = health;
+            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
         }
         
         if(other.CompareTag("enemy"))
@@ -50,6 +57,7 @@ public class ZoneDamage : MonoBehaviour
             health -= enemyDamageMultiplier * Time.deltaTime;
             if (health < 0) health = 0;
             slider.value = health;
+            bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
         }
     }
 
@@ -59,13 +67,15 @@ public class ZoneDamage : MonoBehaviour
         else if (health > 100) health = 100;
 
         slider.value = health;
+        bloodyScreen.DOFade((100 - health) / 100, fadeDuration);
         Debug.Log("current health: " + health);
     }
     
     public void SetHealth(int healthAmount)
     {
-        health = 100;
+        health = healthAmount;
         slider.value = health;
+        bloodyScreen.DOFade((100 - health) / 100, 0);
     }
 
 }
