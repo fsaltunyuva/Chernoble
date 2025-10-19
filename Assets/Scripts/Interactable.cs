@@ -14,6 +14,9 @@ public class Interactable : MonoBehaviour
     [SerializeField] private float fadeDuration = 5f;
     [SerializeField] private GameObject marketCanvas;
 
+    private int antibioticsCount = 0;
+    [SerializeField] GameObject gameOverPanel;
+
     private void Start()
     {
         _zoneDamageScript = GetComponent<ZoneDamage>();
@@ -56,7 +59,7 @@ public class Interactable : MonoBehaviour
                         case "Top":
                             seq.Append(blackScreen.DOFade(1, fadeDuration));
                             seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().topSpawnPoint.position); 
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().topSpawnPoint.position);
                             seq.Append(blackScreen.DOFade(0, fadeDuration));
                             break;
                         case "Top Exit": // It says exit but it's actually the entrance from the top
@@ -146,8 +149,21 @@ public class Interactable : MonoBehaviour
 
                 else if (target.CompareTag("coin"))
                 {
-                    Singleton.Instance.AddCurrency(5);
+                    Singleton.Instance.AddCurrency(target.gameObject.GetComponent<Coin>().GetCoinValue());
                     Destroy(target.gameObject);
+                }
+                
+                else if (target.CompareTag("antibiotic"))
+                {
+                    antibioticsCount += 1;
+                    Destroy(target.gameObject);
+                    if(antibioticsCount == 3)
+                    {
+                        Debug.Log("game over!");
+                        Singleton.Instance.isMovementEnabled = false;
+                        gameOverPanel.SetActive(true);
+                        // TODO: İlaçları bulup oyunu kazanınca yaratıkların hareketi durmalı, Zone'dayken damage almamalı?
+                    }
                 }
             }
         }
@@ -155,7 +171,7 @@ public class Interactable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("health") || other.CompareTag("door") || other.CompareTag("teleporter") || other.CompareTag("market") || other.CompareTag("coin"))
+        if (other.CompareTag("health") || other.CompareTag("door") || other.CompareTag("teleporter") || other.CompareTag("market") || other.CompareTag("coin") || other.CompareTag("antibiotic"))
         {
             isInRange = true;
             target = other;

@@ -16,6 +16,7 @@ TagManager:
   - market
   - coin
   - enemy
+  - antibiotic
   layers:
   - Default
   - TransparentFX
