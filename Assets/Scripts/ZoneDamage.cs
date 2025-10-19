@@ -25,17 +25,57 @@ public class ZoneDamage : MonoBehaviour
     
     [SerializeField] GameObject gameOverPanel;
 
+    [SerializeField] private GameObject glitchEffectA;
+    [SerializeField] private GameObject glitchEffectB;
+    [SerializeField] private GameObject glitchEffectC;
+    [SerializeField] private GameObject glitchEffectD;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("greenZone"))
+        {
+            glitchEffectA.GetComponent<Image>().DOFade(1, 1.5f);
+        }
+        else if (other.CompareTag("blueZone"))
+        {
+            glitchEffectB.GetComponent<Image>().DOFade(1, 1.5f);
+        }
+        else if (other.CompareTag("redZone"))
+        {
+            glitchEffectC.GetComponent<Image>().DOFade(1, 1.5f);
+        }
+        else if (other.CompareTag("purpleZone"))
+        {
+            glitchEffectD.GetComponent<Image>().DOFade(1, 1.5f);
+        }
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("greenZone"))
-            ApplyZoneDamage(healthDecreaseMultiplier1, color: Color.green);
+        {
+            ApplyZoneDamage(healthDecreaseMultiplier1, Color.green);
+            // glitchEffectA.GetComponent<Image>().DOFade(1, 1.5f);
+            // SetGlitchFade(glitchEffectA, 1f, 0.6f); // fade-in
+        }
         else if (other.CompareTag("blueZone"))
-            ApplyZoneDamage(healthDecreaseMultiplier2, color: Color.blue);
+        {
+            // glitchEffectB.GetComponent<Image>().DOFade(1, 1.5f);
+            ApplyZoneDamage(healthDecreaseMultiplier2, Color.blue);
+            // SetGlitchFade(glitchEffectB, 1f, 0.6f);
+        }
         else if (other.CompareTag("redZone"))
-            ApplyZoneDamage(healthDecreaseMultiplier3, color: Color.red);
+        {
+            // glitchEffectC.GetComponent<Image>().DOFade(1, 1.5f);
+            ApplyZoneDamage(healthDecreaseMultiplier3, Color.red);
+            // SetGlitchFade(glitchEffectC, 1f, 0.6f);
+        }
         else if (other.CompareTag("purpleZone"))
-            ApplyZoneDamage(healthDecreaseMultiplier4, color: new Color(128, 0, 128));
-
+        {
+            // glitchEffectD.GetComponent<Image>().DOFade(1, 1.5f);
+            ApplyZoneDamage(healthDecreaseMultiplier4, new Color(0.5f, 0f, 0.5f));
+            // SetGlitchFade(glitchEffectD, 1f, 0.6f);
+        }
         if (other.CompareTag("enemy"))
         {
             ApplyZoneDamage(enemyDamageMultiplier, Color.black, false);
@@ -45,12 +85,19 @@ public class ZoneDamage : MonoBehaviour
     
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("greenZone") || other.CompareTag("blueZone") || other.CompareTag("redZone") || other.CompareTag("purpleZone"))
-        {
-            radiationText.text = "0";
-            radiationText.color = new Color(254, 210, 0);
-        }
+        if (other.CompareTag("greenZone"))
+            glitchEffectA.GetComponent<Image>().DOFade(0, 1f);
+        else if (other.CompareTag("blueZone"))
+            glitchEffectB.GetComponent<Image>().DOFade(0, 1f);
+        else if (other.CompareTag("redZone"))
+            glitchEffectC.GetComponent<Image>().DOFade(0, 1f);
+        else if (other.CompareTag("purpleZone"))
+            glitchEffectD.GetComponent<Image>().DOFade(0, 1f);
+
+        radiationText.text = "0";
+        radiationText.color = new Color(254, 210, 0);
     }
+
 
     private void ApplyZoneDamage(float amount, Color color, bool isDamageFromZone = true)
     {
@@ -116,5 +163,28 @@ public class ZoneDamage : MonoBehaviour
         slider.maxValue = value;
         slider.value = health;
     }
+    
+    private void SetGlitchFade(GameObject glitchObj, float targetAlpha, float duration)
+    {
+        SpriteRenderer sr = glitchObj.GetComponent<SpriteRenderer>();
 
+        // Aktif değilse aç
+        if (!glitchObj.activeSelf)
+        {
+            glitchObj.SetActive(true);
+            Debug.Log("glitchObj active");
+        }
+        
+        // Fade animasyonu başlat
+        sr.DOFade(targetAlpha, duration)
+            .SetEase(Ease.InOutSine)
+            .OnComplete(() =>
+            {
+                // Tamamen şeffaf olduysa objeyi kapat
+                if (Mathf.Approximately(targetAlpha, 0f))
+                    glitchObj.SetActive(false);
+            });
+    }
+
+    
 }
