@@ -4,23 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - camera boundary
-  - door
-  - market
-  - zone1
-  - blueZone
-  - purpleZone
-<<<<<<< Updated upstream
-  - redZone
-  - greenZone
-  - teleporter
-  - middleCollider
   - health
-  - enemy
-=======
+  - middleCollider
+  - teleporter
+  - door
+  - camera boundary
+  - greenZone
+  - blueZone
+  - redZone
+  - purpleZone
   - market
   - coin
->>>>>>> Stashed changes
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -28,7 +23,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - player
   - 
   - 
   - 

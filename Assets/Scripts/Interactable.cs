@@ -144,7 +144,7 @@ public class Interactable : MonoBehaviour
                     movingPart.GetComponent<Teleport>().GetInteractedTeleporter(teleporter, this.gameObject);
                 }
 
-                if (target.CompareTag("coin"))
+                else if (target.CompareTag("coin"))
                 {
                     Singleton.Instance.AddCurrency(5);
                     Destroy(target.gameObject);
