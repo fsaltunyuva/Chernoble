@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite GlockGunSprite;
     [SerializeField] private SpriteRenderer gunSpriteRenderer;
     
+    
+    [SerializeField] private GameObject ak47gun;
+    [SerializeField] private GameObject ak47arm;
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -135,5 +139,11 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         _rb.velocity = _movement * speed * Time.fixedDeltaTime;
+    }
+
+    public void UpgradeToAK47()
+    {
+        gun = ak47gun;
+        arm = ak47arm;
     }
 }

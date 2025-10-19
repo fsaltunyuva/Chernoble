@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
             AIChase enemy = other.GetComponent<AIChase>();
             if (enemy != null)
             {
-                enemy.TakeDamage(25);
+                enemy.TakeDamage(Singleton.Instance.playerDamage);
                 enemy.PlayDamageFeedback();
                 // StartCoroutine(DamageFeedback(enemy.gameObject)); // feedback çağırılıyor
             }

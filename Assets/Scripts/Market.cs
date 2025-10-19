@@ -4,6 +4,11 @@ using UnityEngine.UI;
 public class Market : MonoBehaviour
 {
     [SerializeField] private int increasedAmmoAmount = 40;
+    [SerializeField] private int increasedHealthAmount = 150;
+    [SerializeField] private SpriteRenderer gunSpriteRenderer;
+    [SerializeField] private Player playerScript;
+    [SerializeField] private PlayerAimWeapon playerAimWeaponScript;
+    [SerializeField] private ZoneDamage _zoneDamageScript;
     
     public void TryToBuyItem()
     {
@@ -12,7 +17,8 @@ public class Market : MonoBehaviour
         if (selectedButton != null)
         {
             Item selectedItem = selectedButton.GetComponent<Item>();
-
+            // TODO: Play buy sound effect
+            
             if (Singleton.Instance.currency >= selectedItem.cost)
             {
                 switch (selectedItem.type)
@@ -23,8 +29,12 @@ public class Market : MonoBehaviour
                         Singleton.Instance.UpdateAmmoText();
                         break;
                     case ItemType.Gun:
+                        Singleton.Instance.playerDamage = 20;
+                        playerScript.UpgradeToAK47();
+                        playerAimWeaponScript.UpgradeToAK47();
                         break;
                     case ItemType.Health:
+                        _zoneDamageScript.SetMaxHealth(increasedHealthAmount);
                         break; 
                     case ItemType.Light:
                         break;
@@ -34,6 +44,7 @@ public class Market : MonoBehaviour
                         break;
                 }
                 Singleton.Instance.SpendCurrency(selectedItem.cost);
+                selectedButton.GetComponent<Button>().interactable = false;
             }
         }
     }
