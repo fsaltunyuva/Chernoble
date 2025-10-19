@@ -20,6 +20,7 @@ public class Market : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private GameObject flareGunTutorialText;
+    [SerializeField] private GameObject flareGunUIText;
     
     public void TryToBuyItem()
     {
@@ -61,6 +62,7 @@ public class Market : MonoBehaviour
                         flareGunTutorialText.SetActive(true);
                         // shake tutorial text using DOTween and loop
                         flareGunTutorialText.GetComponent<RectTransform>().DOShakePosition(1f, new Vector3(0.1f, 0.1f, 0f), 2, 90, false, true).SetLoops(-1, LoopType.Restart);
+                        flareGunUIText.SetActive(true);
                         break;
                 }
                 Singleton.Instance.SpendCurrency(selectedItem.cost);
