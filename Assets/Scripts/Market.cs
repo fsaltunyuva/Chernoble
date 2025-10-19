@@ -1,15 +1,20 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class Market : MonoBehaviour
 {
     [SerializeField] private int increasedAmmoAmount = 40;
     [SerializeField] private int increasedHealthAmount = 150;
+    [SerializeField] private int increasedLightRadius = 5;
+    [SerializeField] private int increasedLightIntensity = 3;
     [SerializeField] private SpriteRenderer gunSpriteRenderer;
     [SerializeField] private Player playerScript;
     [SerializeField] private PlayerAimWeapon playerAimWeaponScript;
     [SerializeField] private ZoneDamage _zoneDamageScript;
     
+    [SerializeField] private Light2D playerLight;
+     
     public void TryToBuyItem()
     {
         GameObject selectedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
@@ -37,6 +42,8 @@ public class Market : MonoBehaviour
                         _zoneDamageScript.SetMaxHealth(increasedHealthAmount);
                         break; 
                     case ItemType.Light:
+                        playerLight.pointLightOuterRadius = increasedLightRadius;
+                        playerLight.intensity = increasedLightIntensity;
                         break;
                     case ItemType.Suit:
                         break;
