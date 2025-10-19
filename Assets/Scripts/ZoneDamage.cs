@@ -20,8 +20,10 @@ public class ZoneDamage : MonoBehaviour
     [Header("Player Feedback")]
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private Transform playerTransform;
-    
+
     [SerializeField] private TextMeshProUGUI radiationText;
+    
+    [SerializeField] GameObject gameOverPanel;
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -53,7 +55,11 @@ public class ZoneDamage : MonoBehaviour
     private void ApplyZoneDamage(float amount, Color color, bool isDamageFromZone = true)
     {
         health -= amount * Time.deltaTime;
-        if (health < 0) health = 0;
+        if (health < 0)
+        {
+            health = 0;
+            gameOverPanel.SetActive(true);
+        }
         slider.value = health;
         bloodyScreen.DOFade((100 - health) / 100f, fadeDuration);
 
