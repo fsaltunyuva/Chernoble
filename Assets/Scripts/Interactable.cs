@@ -129,13 +129,19 @@ public class Interactable : MonoBehaviour
                     teleportSlider.SetActive(true);
                     movingPart.GetComponent<Teleport>().GetInteractedTeleporter(teleporter, this.gameObject);
                 }
+
+                if (target.CompareTag("coin"))
+                {
+                    Singleton.Instance.AddCurrency(5);
+                    Destroy(target.gameObject);
+                }
             }
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("health") || other.CompareTag("door") || other.CompareTag("teleporter") || other.CompareTag("market"))
+        if (other.CompareTag("health") || other.CompareTag("door") || other.CompareTag("teleporter") || other.CompareTag("market") || other.CompareTag("coin"))
         {
             isInRange = true;
             target = other;

@@ -10,12 +10,17 @@ TagManager:
   - zone1
   - blueZone
   - purpleZone
+<<<<<<< Updated upstream
   - redZone
   - greenZone
   - teleporter
   - middleCollider
   - health
   - enemy
+=======
+  - market
+  - coin
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
