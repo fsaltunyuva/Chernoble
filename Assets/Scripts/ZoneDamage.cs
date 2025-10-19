@@ -22,9 +22,10 @@ public class ZoneDamage : MonoBehaviour
     [SerializeField] private Transform playerTransform;
 
     [SerializeField] private TextMeshProUGUI radiationText;
-    
+
     [SerializeField] GameObject gameOverPanel;
 
+<<<<<<< Updated upstream
     [SerializeField] private GameObject glitchEffectA;
     [SerializeField] private GameObject glitchEffectB;
     [SerializeField] private GameObject glitchEffectC;
@@ -47,6 +48,15 @@ public class ZoneDamage : MonoBehaviour
         else if (other.CompareTag("purpleZone"))
         {
             glitchEffectD.GetComponent<Image>().DOFade(1, 1.5f);
+=======
+    [SerializeField] AudioSource audioSource;
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("greenZone") || other.CompareTag("blueZone") || other.CompareTag("redZone") || other.CompareTag("purpleZone"))
+        {
+            audioSource.Play();
+>>>>>>> Stashed changes
         }
     }
 
@@ -85,6 +95,7 @@ public class ZoneDamage : MonoBehaviour
     
     void OnTriggerExit2D(Collider2D other)
     {
+<<<<<<< Updated upstream
         if (other.CompareTag("greenZone"))
             glitchEffectA.GetComponent<Image>().DOFade(0, 1f);
         else if (other.CompareTag("blueZone"))
@@ -96,6 +107,14 @@ public class ZoneDamage : MonoBehaviour
 
         radiationText.text = "0";
         radiationText.color = new Color(254, 210, 0);
+=======
+        if (other.CompareTag("greenZone") || other.CompareTag("blueZone") || other.CompareTag("redZone") || other.CompareTag("purpleZone"))
+        {
+            radiationText.text = "0";
+            radiationText.color = new Color(254, 210, 0);
+            audioSource.Stop();
+        }
+>>>>>>> Stashed changes
     }
 
 
