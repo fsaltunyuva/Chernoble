@@ -8,6 +8,7 @@ public class ZoneDamage : MonoBehaviour
     [SerializeField] private int healthDecreaseMultiplier2;
     [SerializeField] private int healthDecreaseMultiplier3;
     [SerializeField] private int healthDecreaseMultiplier4;
+    [SerializeField] private int enemyDamageMultiplier;
     private float health = 100f;
     [SerializeField] Slider slider;
 
@@ -39,6 +40,13 @@ public class ZoneDamage : MonoBehaviour
         {
             health -= healthDecreaseMultiplier4 * Time.deltaTime;
             Debug.Log("health: " + health);
+            if (health < 0) health = 0;
+            slider.value = health;
+        }
+        
+        if(other.CompareTag("enemy"))
+        {
+            health -= enemyDamageMultiplier * Time.deltaTime;
             if (health < 0) health = 0;
             slider.value = health;
         }

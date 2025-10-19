@@ -9,10 +9,15 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     
     // Can be used for more maps
-    // [SerializeField] private Transform rightSpawnPoint;
-    // [SerializeField] private Transform leftSpawnPoint;
-    // [SerializeField] private Transform topSpawnPoint;
-    // [SerializeField] private Transform bottomSpawnPoint;
+    // TODO: Move them to Interactable.cs
+    [SerializeField] public Transform rightSpawnPoint;
+    [SerializeField] public Transform leftSpawnPoint;
+    [SerializeField] public Transform topSpawnPoint;
+    [SerializeField] public Transform bottomSpawnPoint;
+    [SerializeField] public Transform rightExitSpawnPoint;
+    [SerializeField] public Transform leftExitSpawnPoint;
+    [SerializeField] public Transform topExitSpawnPoint;
+    [SerializeField] public Transform bottomExitSpawnPoint;
 
     [SerializeField] private GameObject gun;
     [SerializeField] private GameObject arm;

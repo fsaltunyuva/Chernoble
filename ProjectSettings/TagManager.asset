@@ -4,15 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - health
-  - middleCollider
-  - teleporter
-  - door
   - camera boundary
-  - greenZone
+  - door
+  - market
+  - zone1
   - blueZone
-  - redZone
   - purpleZone
+  - redZone
+  - greenZone
+  - teleporter
+  - middleCollider
+  - health
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +23,7 @@ TagManager:
   - 
   - Water
   - UI
-  - player
+  - 
   - 
   - 
   - 

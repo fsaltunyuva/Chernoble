@@ -50,32 +50,75 @@ public class Interactable : MonoBehaviour
                 {
                     // TODO: Door crack sound effect
                     Singleton.Instance.isMovementEnabled = false;
-                    // switch (target.gameObject.name)
-                    // {
-                    //     case "Top":
-                    //         Singleton.Instance.spawnPoint = SpawnPoint.Top;
-                    //         break;
-                    //     case "Bottom":
-                    //         Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
-                    //         break;
-                    //     case "Left":
-                    //         Singleton.Instance.spawnPoint = SpawnPoint.Left;
-                    //         break;
-                    //     case "Down":
-                    //         Singleton.Instance.spawnPoint = SpawnPoint.Right;
-                    //         break;
-                    // }
-                    blackScreen.DOFade(1, fadeDuration).OnComplete(() =>
+                    Sequence seq = DOTween.Sequence();
+                    switch (target.gameObject.name)
                     {
-                        Random rand = new Random();
-
-                        int nextSceneIndex = rand.Next(1, SceneManager.sceneCountInBuildSettings);
-                        while (nextSceneIndex == Singleton.Instance.previoslyLoadedSceneIndex)
-                        {
-                            nextSceneIndex = rand.Next(1, SceneManager.sceneCountInBuildSettings);
-                        }
-                        SceneManager.LoadScene(nextSceneIndex);
-                    });
+                        case "Top":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().topSpawnPoint.position); 
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            break;
+                        case "Top Exit": // It says exit but it's actually the entrance from the top
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().topExitSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            break;
+                        case "Bottom":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
+                            break;
+                        case "Bottom Exit":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomExitSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
+                            break;
+                        case "Left":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().leftSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Left;
+                            break;
+                        case "Left Exit":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().leftExitSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Left;
+                            break;
+                        case "Down":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Right;
+                            break;
+                        case "Down Exit":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomExitSpawnPoint.position);
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Right;
+                            break;
+                    }
+                    // blackScreen.DOFade(1, fadeDuration).OnComplete(() =>
+                    // {
+                    //     Random rand = new Random();
+                    //
+                    //     int nextSceneIndex = rand.Next(1, SceneManager.sceneCountInBuildSettings);
+                    //     while (nextSceneIndex == Singleton.Instance.previoslyLoadedSceneIndex)
+                    //     {
+                    //         nextSceneIndex = rand.Next(1, SceneManager.sceneCountInBuildSettings);
+                    //     }
+                    //     SceneManager.LoadScene(nextSceneIndex);
+                    // });
                 }
                 else if (target.CompareTag("teleporter"))
                 {
