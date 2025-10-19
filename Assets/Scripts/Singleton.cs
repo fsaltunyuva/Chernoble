@@ -9,19 +9,28 @@ public enum SpawnPoint
     Left,
     Right
 }
+
+public enum WeaponType
+{
+    Glock,
+    FlareGun
+}
 public class Singleton : MonoBehaviour
 {
     public static Singleton Instance { get; private set; } // This is the instance of the Singleton class.
     
     [SerializeField] public int currency;
     [SerializeField] public int gunAmmo;
+    [SerializeField] public int flareAmmo;
     [SerializeField] public int maxAmmo;
     [SerializeField] TextMeshProUGUI currencyText;
     [SerializeField] TextMeshProUGUI ammoText;
+    [SerializeField] TextMeshProUGUI flareAmmoText;
     // public SpawnPoint spawnPoint = SpawnPoint.Top;
     public bool isMovementEnabled = true;
     public int previoslyLoadedSceneIndex = -1;
     public bool isMarketCanvasOn = false;
+    public WeaponType currentWeapon = WeaponType.Glock;
 
     private void Awake() 
     {
@@ -70,8 +79,20 @@ public class Singleton : MonoBehaviour
         return false;
     }
     
-    public bool SpendAmmo(int amount)
+    public bool SpendAmmo(int amount, bool isFlareAmmo = false)
     {
+        if (isFlareAmmo)
+        {
+            if (flareAmmo >= amount)
+            {
+                flareAmmo -= amount;
+                flareAmmoText.text = flareAmmo.ToString();
+                return true;
+            }
+            return false;
+        }
+        
+        // Normal gun ammo spending
         if (gunAmmo >= amount)
         {
             gunAmmo -= amount;

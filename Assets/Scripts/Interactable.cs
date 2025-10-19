@@ -93,6 +93,20 @@ public class Interactable : MonoBehaviour
                             seq.Append(blackScreen.DOFade(0, fadeDuration));
                             // Singleton.Instance.spawnPoint = SpawnPoint.Left;
                             break;
+                        case "Right":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().rightSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Left;
+                            break;
+                        case "Right Exit":
+                            seq.Append(blackScreen.DOFade(1, fadeDuration));
+                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+                            seq.AppendCallback(() => transform.position = GetComponent<Player>().rightExitSpawnPoint.position);
+                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            // Singleton.Instance.spawnPoint = SpawnPoint.Left;
+                            break;
                         case "Down":
                             seq.Append(blackScreen.DOFade(1, fadeDuration));
                             seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);

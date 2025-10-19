@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     
     public bool isPlayerInGunMode = false;
     
+    [SerializeField] private Sprite FlareGunSprite;
+    [SerializeField] private Sprite GlockGunSprite;
+    [SerializeField] private SpriteRenderer gunSpriteRenderer;
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -63,12 +67,32 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(1)) // Holding right mouse button
         {
             Singleton.Instance.isMovementEnabled = false;
+            Singleton.Instance.currentWeapon = WeaponType.Glock;
             _animator.SetBool("gun", true);
+            gunSpriteRenderer.sprite = GlockGunSprite;
             gun.SetActive(true);
             isPlayerInGunMode = true;
         }
         
         if (Input.GetMouseButtonUp(1)) // Releasing right mouse button
+        {
+            Singleton.Instance.isMovementEnabled = true;
+            _animator.SetBool("gun", false);
+            gun.SetActive(false);
+            isPlayerInGunMode = false;
+        }
+        
+        if (Input.GetMouseButton(2)) // Holding middle mouse button
+        {
+            Singleton.Instance.isMovementEnabled = false;
+            Singleton.Instance.currentWeapon = WeaponType.FlareGun;
+            _animator.SetBool("gun", true);
+            gunSpriteRenderer.sprite = FlareGunSprite;
+            gun.SetActive(true);
+            isPlayerInGunMode = true;
+        }
+        
+        if (Input.GetMouseButtonUp(2)) // Releasing middle mouse button
         {
             Singleton.Instance.isMovementEnabled = true;
             _animator.SetBool("gun", false);
