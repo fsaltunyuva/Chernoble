@@ -65,15 +65,15 @@ public class PlayerAimWeapon : MonoBehaviour
     
     void HandleShooting()
     {
-        if (Singleton.Instance.IsThereEnoughAmmo(1) && Input.GetMouseButtonDown(0) && _playerScript.isPlayerInGunMode)
+        if (Input.GetMouseButtonDown(0) && _playerScript.isPlayerInGunMode)
         {
             // TODO: Play click sfx when there is no ammo left (use spend ammo's bool return value)
-            if(Singleton.Instance.currentWeapon == WeaponType.Glock)
+            if(Singleton.Instance.IsThereEnoughAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.Glock)
             {
                 animator.CrossFadeInFixedTime("Gun Shot Animation", 0f);
                 ShootBullet();
             }
-            else if(Singleton.Instance.currentWeapon == WeaponType.FlareGun)
+            else if(Singleton.Instance.IsThereEnoughFlareAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.FlareGun)
             {
                 ShootFlare();
             }

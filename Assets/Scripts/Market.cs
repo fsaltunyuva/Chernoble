@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
@@ -17,7 +18,9 @@ public class Market : MonoBehaviour
     
     [SerializeField] private AudioClip purchaseSoundEffect;
     [SerializeField] private AudioSource audioSource;
-     
+
+    [SerializeField] private GameObject flareGunTutorialText;
+    
     public void TryToBuyItem()
     {
         GameObject selectedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
@@ -55,6 +58,9 @@ public class Market : MonoBehaviour
                         break;
                     case ItemType.FlareGun:
                         Singleton.Instance.isPlayerBoughtFlareGun = true;
+                        flareGunTutorialText.SetActive(true);
+                        // shake tutorial text using DOTween and loop
+                        flareGunTutorialText.GetComponent<RectTransform>().DOShakePosition(1f, new Vector3(0.1f, 0.1f, 0f), 2, 90, false, true).SetLoops(-1, LoopType.Restart);
                         break;
                 }
                 Singleton.Instance.SpendCurrency(selectedItem.cost);

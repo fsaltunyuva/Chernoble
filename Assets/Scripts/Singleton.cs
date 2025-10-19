@@ -117,6 +117,11 @@ public class Singleton : MonoBehaviour
         return gunAmmo >= amount;
     }
     
+    public bool IsThereEnoughFlareAmmo(int amount)
+    {
+        return flareAmmo >= amount;
+    }
+    
     public void ResetValues()
     {
         currency = 100;
