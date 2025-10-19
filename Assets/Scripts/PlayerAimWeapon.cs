@@ -71,7 +71,6 @@ public class PlayerAimWeapon : MonoBehaviour
             }
             else if(Singleton.Instance.currentWeapon == WeaponType.FlareGun)
             {
-                bulletPrefab = flareBulletPrefab;
                 ShootFlare();
             }
         }

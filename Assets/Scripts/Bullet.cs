@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public enum BulletType
@@ -23,6 +24,23 @@ public class Bullet : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("camera boundary"))
         {
+            if (bulletType == BulletType.GlockBullet)
+                Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("enemy"))
+        {
+            AIChase enemy = other.GetComponent<AIChase>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(25);
+                enemy.PlayDamageFeedback();
+                // StartCoroutine(DamageFeedback(enemy.gameObject)); // feedback çağırılıyor
+            }
+
             if (bulletType == BulletType.GlockBullet)
                 Destroy(gameObject);
         }
