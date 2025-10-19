@@ -32,6 +32,8 @@ public class Singleton : MonoBehaviour
     public bool isMarketCanvasOn = false;
     public WeaponType currentWeapon = WeaponType.Glock;
     public int playerDamage = 10;
+    
+    public bool isPlayerBoughtFlareGun = false;
 
     private void Awake() 
     {

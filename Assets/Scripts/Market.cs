@@ -46,8 +46,14 @@ public class Market : MonoBehaviour
                         playerLight.intensity = increasedLightIntensity;
                         break;
                     case ItemType.Suit:
+                        _zoneDamageScript.healthDecreaseMultiplier1 -= 3;
+                        _zoneDamageScript.healthDecreaseMultiplier2 -= 3;
+                        _zoneDamageScript.healthDecreaseMultiplier3 -= 3;
+                        _zoneDamageScript.healthDecreaseMultiplier4 -= 3;
+                        _zoneDamageScript.enemyDamageMultiplier -= 5;
                         break;
                     case ItemType.FlareGun:
+                        Singleton.Instance.isPlayerBoughtFlareGun = true;
                         break;
                 }
                 Singleton.Instance.SpendCurrency(selectedItem.cost);

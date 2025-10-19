@@ -6,11 +6,11 @@ using TMPro;
 
 public class ZoneDamage : MonoBehaviour
 {
-    [SerializeField] private int healthDecreaseMultiplier1;
-    [SerializeField] private int healthDecreaseMultiplier2;
-    [SerializeField] private int healthDecreaseMultiplier3;
-    [SerializeField] private int healthDecreaseMultiplier4;
-    [SerializeField] private int enemyDamageMultiplier;
+    [SerializeField] public int healthDecreaseMultiplier1;
+    [SerializeField] public int healthDecreaseMultiplier2;
+    [SerializeField] public int healthDecreaseMultiplier3;
+    [SerializeField] public int healthDecreaseMultiplier4;
+    [SerializeField] public int enemyDamageMultiplier;
     private float health = 100f;
     [SerializeField] Slider slider;
 

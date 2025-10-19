@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite GlockGunSprite;
     [SerializeField] private SpriteRenderer gunSpriteRenderer;
     
-    
     [SerializeField] private GameObject ak47gun;
     [SerializeField] private GameObject ak47arm;
     
@@ -88,20 +87,26 @@ public class Player : MonoBehaviour
         
         if (Input.GetMouseButton(2)) // Holding middle mouse button
         {
-            Singleton.Instance.isMovementEnabled = false;
-            Singleton.Instance.currentWeapon = WeaponType.FlareGun;
-            _animator.SetBool("gun", true);
-            gunSpriteRenderer.sprite = FlareGunSprite;
-            gun.SetActive(true);
-            isPlayerInGunMode = true;
+            if (Singleton.Instance.isPlayerBoughtFlareGun)
+            {
+                Singleton.Instance.isMovementEnabled = false;
+                Singleton.Instance.currentWeapon = WeaponType.FlareGun;
+                _animator.SetBool("gun", true);
+                gunSpriteRenderer.sprite = FlareGunSprite;
+                gun.SetActive(true);
+                isPlayerInGunMode = true;
+            }
         }
         
         if (Input.GetMouseButtonUp(2)) // Releasing middle mouse button
         {
-            Singleton.Instance.isMovementEnabled = true;
-            _animator.SetBool("gun", false);
-            gun.SetActive(false);
-            isPlayerInGunMode = false;
+            if (Singleton.Instance.isPlayerBoughtFlareGun)
+            {
+                Singleton.Instance.isMovementEnabled = true;
+                _animator.SetBool("gun", false);
+                gun.SetActive(false);
+                isPlayerInGunMode = false;
+            }
         }
 
         FlipSprite(_movement.x);
