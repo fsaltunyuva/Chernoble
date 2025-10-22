@@ -29,29 +29,28 @@ public class ZoneDamage : MonoBehaviour
     [SerializeField] private GameObject glitchEffectB;
     [SerializeField] private GameObject glitchEffectC;
     [SerializeField] private GameObject glitchEffectD;
-    [SerializeField] AudioSource audioSource;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("greenZone"))
         {
             glitchEffectA.GetComponent<Image>().DOFade(1, 1.5f);
-            audioSource.Play();
+            SingletonMusic.Instance.PlayRadioactiveSFX();
         }
         else if (other.CompareTag("blueZone"))
         {
             glitchEffectB.GetComponent<Image>().DOFade(1, 1.5f);
-            audioSource.Play();
+            SingletonMusic.Instance.PlayRadioactiveSFX();
         }
         else if (other.CompareTag("redZone"))
         {
             glitchEffectC.GetComponent<Image>().DOFade(1, 1.5f);
-            audioSource.Play();
+            SingletonMusic.Instance.PlayRadioactiveSFX();
         }
         else if (other.CompareTag("purpleZone"))
         {
             glitchEffectD.GetComponent<Image>().DOFade(1, 1.5f);
-            audioSource.Play();
+            SingletonMusic.Instance.PlayRadioactiveSFX();
         }
     }
 
@@ -105,7 +104,7 @@ public class ZoneDamage : MonoBehaviour
         {
             radiationText.text = "0";
             radiationText.color = new Color(254, 210, 0);
-            audioSource.Stop();
+            SingletonMusic.Instance.StopRadioactiveSFX();
         }
     }
 
@@ -167,12 +166,17 @@ public class ZoneDamage : MonoBehaviour
             playerTransform.DOShakePosition(0.2f, 0.1f, 10, 90, false, true);
         }
     }
-    
+
     public void SetMaxHealth(int value)
     {
         health = value;
         slider.maxValue = value;
         slider.value = health;
+    }
+    
+    public int GetMaxHealth()
+    {
+        return (int) slider.maxValue;
     }
     
     private void SetGlitchFade(GameObject glitchObj, float targetAlpha, float duration)

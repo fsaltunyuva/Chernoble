@@ -51,88 +51,40 @@ public class Interactable : MonoBehaviour
                 }
                 else if (target.CompareTag("door"))
                 {
-                    // TODO: Door crack sound effect
                     Singleton.Instance.isMovementEnabled = false;
                     Sequence seq = DOTween.Sequence();
+
                     switch (target.gameObject.name)
                     {
                         case "Top":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().topSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            ExitingTween(GetComponent<Player>().topSpawnPoint.position, seq);
                             break;
                         case "Top Exit": // It says exit but it's actually the entrance from the top
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().topExitSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
-                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
-                            Singleton.Instance.UpdateAmmoText();
+                            EnteringTween(GetComponent<Player>().topExitSpawnPoint.position, seq);
                             break;
                         case "Bottom":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            ExitingTween(GetComponent<Player>().bottomSpawnPoint.position, seq);
                             // Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
                             break;
                         case "Bottom Exit":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomExitSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
-                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
-                            Singleton.Instance.UpdateAmmoText();
+                            EnteringTween(GetComponent<Player>().bottomExitSpawnPoint.position, seq);
                             // Singleton.Instance.spawnPoint = SpawnPoint.Bottom;
                             break;
                         case "Left":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().leftSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            ExitingTween(GetComponent<Player>().leftSpawnPoint.position, seq);
                             // Singleton.Instance.spawnPoint = SpawnPoint.Left;
                             break;
                         case "Left Exit":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().leftExitSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
-                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
-                            Singleton.Instance.UpdateAmmoText();
+                            EnteringTween(GetComponent<Player>().leftExitSpawnPoint.position, seq);
                             // Singleton.Instance.spawnPoint = SpawnPoint.Left;
                             break;
                         case "Right":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().rightSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
+                            ExitingTween(GetComponent<Player>().rightSpawnPoint.position, seq);
                             // Singleton.Instance.spawnPoint = SpawnPoint.Left;
                             break;
                         case "Right Exit":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().rightExitSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
-                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
-                            Singleton.Instance.UpdateAmmoText();
+                            EnteringTween(GetComponent<Player>().rightExitSpawnPoint.position, seq);
                             // Singleton.Instance.spawnPoint = SpawnPoint.Left;
-                            break;
-                        case "Down":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomSpawnPoint.position);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
-                            // Singleton.Instance.spawnPoint = SpawnPoint.Right;
-                            break;
-                        case "Down Exit":
-                            seq.Append(blackScreen.DOFade(1, fadeDuration));
-                            seq.AppendCallback(() => transform.position = GetComponent<Player>().bottomExitSpawnPoint.position);
-                            seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
-                            seq.Append(blackScreen.DOFade(0, fadeDuration));
-                            Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo;
-                            Singleton.Instance.UpdateAmmoText();
-                            // Singleton.Instance.spawnPoint = SpawnPoint.Right;
                             break;
                     }
                     // blackScreen.DOFade(1, fadeDuration).OnComplete(() =>
@@ -162,12 +114,12 @@ public class Interactable : MonoBehaviour
                     Singleton.Instance.AddCurrency(target.gameObject.GetComponent<Coin>().GetCoinValue());
                     Destroy(target.gameObject);
                 }
-                
+
                 else if (target.CompareTag("antibiotic"))
                 {
                     antibioticsCount += 1;
                     Destroy(target.gameObject);
-                    if(antibioticsCount == 3)
+                    if (antibioticsCount == 3)
                     {
                         Debug.Log("game over!");
                         Singleton.Instance.isMovementEnabled = false;
@@ -192,7 +144,7 @@ public class Interactable : MonoBehaviour
     {
         if (other == target)
         {
-            if(target.CompareTag("market"))
+            if (target.CompareTag("market"))
             {
                 marketCanvas.SetActive(false);
                 Singleton.Instance.isMovementEnabled = true;
@@ -201,4 +153,26 @@ public class Interactable : MonoBehaviour
             target = null;
         }
     }
+
+    public void EnteringTween(Vector3 pos, Sequence seq)
+    {
+        SingletonMusic.Instance.PlaySFX("doorCrack_SFX");
+        seq.Append(blackScreen.DOFade(1, fadeDuration));
+        seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+        seq.AppendCallback(() => transform.position = pos);
+        seq.AppendCallback(() => _zoneDamageScript.SetHealth(_zoneDamageScript.GetMaxHealth()));
+        seq.AppendCallback(() => Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo);
+        seq.AppendCallback(() => Singleton.Instance.UpdateAmmoText());
+        seq.Append(blackScreen.DOFade(0, fadeDuration));
+    }
+
+    public void ExitingTween(Vector3 pos, Sequence seq)
+    {
+        SingletonMusic.Instance.PlaySFX("doorCrack_SFX");
+        seq.Append(blackScreen.DOFade(1, fadeDuration));
+        seq.AppendCallback(() => Singleton.Instance.isMovementEnabled = true);
+        seq.AppendCallback(() => transform.position = pos);
+        seq.Append(blackScreen.DOFade(0, fadeDuration));
+    }
+
 }

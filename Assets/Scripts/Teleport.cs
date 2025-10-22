@@ -42,7 +42,7 @@ public class Teleport : MonoBehaviour
 
                 seq.Append(blackScreen.DOFade(1, fadeDuration));
                 seq.AppendCallback(() => player.transform.position = new Vector3(1.07f, -0.97f, 0f));
-                seq.AppendCallback(() => _zoneDamageScript.SetHealth(100));
+                seq.AppendCallback(() => _zoneDamageScript.SetHealth(_zoneDamageScript.GetMaxHealth()));
                 seq.AppendCallback(() => Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo);
                 seq.AppendCallback(() => Singleton.Instance.UpdateAmmoText());
                 seq.Append(blackScreen.DOFade(0, fadeDuration));

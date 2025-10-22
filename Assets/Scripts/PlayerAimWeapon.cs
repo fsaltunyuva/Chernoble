@@ -67,15 +67,24 @@ public class PlayerAimWeapon : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && _playerScript.isPlayerInGunMode)
         {
-            // TODO: Play click sfx when there is no ammo left (use spend ammo's bool return value)
-            if(Singleton.Instance.IsThereEnoughAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.Glock)
+            if (Singleton.Instance.IsThereEnoughAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.Glock)
             {
                 animator.CrossFadeInFixedTime("Gun Shot Animation", 0f);
                 ShootBullet();
+                SingletonMusic.Instance.PlaySFX("glock_SFX");
             }
-            else if(Singleton.Instance.IsThereEnoughFlareAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.FlareGun)
+            else if (!Singleton.Instance.IsThereEnoughAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.Glock)
+            {
+                SingletonMusic.Instance.PlaySFX("noAmmo_SFX");
+            }
+            else if (Singleton.Instance.IsThereEnoughFlareAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.FlareGun)
             {
                 ShootFlare();
+                SingletonMusic.Instance.PlaySFX("flaregunIgnition_SFX");
+            }
+            else if(!Singleton.Instance.IsThereEnoughFlareAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.FlareGun)
+            {
+                SingletonMusic.Instance.PlaySFX("noAmmo_SFX");
             }
         }
     }

@@ -121,20 +121,4 @@ public class Singleton : MonoBehaviour
     {
         return flareAmmo >= amount;
     }
-    
-    public void ResetValues()
-    {
-        currency = 100;
-        currencyText.text = currency.ToString();
-
-        currentWeapon = WeaponType.Glock;
-
-        gunAmmo = 50;
-        ammoText.text = gunAmmo.ToString();
-
-        flareAmmo = 3;
-        flareAmmoText.text = flareAmmo.ToString();
-
-        isMovementEnabled = true;
-    }
 }
