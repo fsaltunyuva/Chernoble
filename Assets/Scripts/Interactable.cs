@@ -112,6 +112,7 @@ public class Interactable : MonoBehaviour
                 else if (target.CompareTag("coin"))
                 {
                     Singleton.Instance.AddCurrency(target.gameObject.GetComponent<Coin>().GetCoinValue());
+                    SingletonMusic.Instance.PlaySFX("coin_SFX");
                     Destroy(target.gameObject);
                 }
 

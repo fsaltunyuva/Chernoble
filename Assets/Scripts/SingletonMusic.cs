@@ -12,6 +12,11 @@ public class SingletonMusic : MonoBehaviour
     [SerializeField] AudioClip flaregunIgnition_SFX;
 
     [SerializeField] AudioClip doorCrack_SFX;
+    [SerializeField] AudioClip coin_SFX;
+    [SerializeField] AudioClip aiStartChase_SFX;
+    [SerializeField] AudioClip aiDeath_SFX;
+    [SerializeField] AudioClip teleport1_SFX;
+    [SerializeField] AudioClip teleport2_SFX;
 
     private void Awake()
     {
@@ -43,6 +48,26 @@ public class SingletonMusic : MonoBehaviour
         else if (sfx_name == "doorCrack_SFX")
         {
             audioSource1.PlayOneShot(doorCrack_SFX);
+        }
+        else if (sfx_name == "coin_SFX")
+        {
+            audioSource1.PlayOneShot(coin_SFX);
+        }
+        else if (sfx_name == "aiStartChase_SFX")
+        {
+            audioSource1.PlayOneShot(aiStartChase_SFX);
+        }
+        else if (sfx_name == "aiDeath_SFX")
+        {
+            audioSource1.PlayOneShot(aiDeath_SFX);
+        }
+        else if (sfx_name == "teleport1_SFX")
+        {
+            audioSource1.PlayOneShot(teleport1_SFX);
+        }
+        else if (sfx_name == "teleport2_SFX")
+        {
+            audioSource1.PlayOneShot(teleport2_SFX);
         }
     }
 

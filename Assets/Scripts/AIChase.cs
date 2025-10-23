@@ -17,6 +17,8 @@ public class AIChase : MonoBehaviour
     public Animator animator;
     private SpriteRenderer sr;
 
+    private int count = 0;
+
     // private void Awake()
     // {
     //     sr = GetComponent<SpriteRenderer>();
@@ -42,10 +44,11 @@ public class AIChase : MonoBehaviour
     //         animator?.SetBool("chase", false);
     //     }
     // }
-    
+
     Rigidbody2D rb;
 
-    private void Awake() {
+    private void Awake()
+    {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
@@ -60,9 +63,15 @@ public class AIChase : MonoBehaviour
             Vector2 direction = ((Vector2)player.transform.position - rb.position).normalized;
             rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
             animator?.SetBool("chase", true);
+            if (count == 0)
+            {
+                count = 1;
+                SingletonMusic.Instance.PlaySFX("aiStartChase_SFX");
+            }
         }
         else
         {
+            count = 0;
             animator?.SetBool("chase", false);
         }
     }
@@ -81,6 +90,7 @@ public class AIChase : MonoBehaviour
 
     private IEnumerator DieAfterDelay(float delay)
     {
+        SingletonMusic.Instance.PlaySFX("aiDeath_SFX");
         isDead = true;
 
         // Chase animasyonunu kapat
@@ -94,7 +104,7 @@ public class AIChase : MonoBehaviour
         seq.Join(transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.InBack));
         seq.AppendCallback(() => Destroy(gameObject));
     }
-    
+
     public void PlayDamageFeedback()
     {
         StartCoroutine(DamageFeedbackRoutine());

@@ -38,6 +38,8 @@ public class Teleport : MonoBehaviour
                 Debug.Log("success!");
                 Singleton.Instance.isMovementEnabled = true;
 
+                SingletonMusic.Instance.PlaySFX("teleport1_SFX");
+                
                 Sequence seq = DOTween.Sequence();
 
                 seq.Append(blackScreen.DOFade(1, fadeDuration));
@@ -45,6 +47,7 @@ public class Teleport : MonoBehaviour
                 seq.AppendCallback(() => _zoneDamageScript.SetHealth(_zoneDamageScript.GetMaxHealth()));
                 seq.AppendCallback(() => Singleton.Instance.gunAmmo = Singleton.Instance.maxAmmo);
                 seq.AppendCallback(() => Singleton.Instance.UpdateAmmoText());
+                seq.AppendCallback(() => SingletonMusic.Instance.PlaySFX("teleport2_SFX"));
                 seq.Append(blackScreen.DOFade(0, fadeDuration));
 
                 Destroy(teleporter);
