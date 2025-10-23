@@ -30,6 +30,7 @@ public class Interactable : MonoBehaviour
             {
                 if (target.CompareTag("health"))
                 {
+                    SingletonMusic.Instance.PlaySFX("health_SFX");
                     Destroy(target.gameObject);
                     _zoneDamageScript.AddHealth(30);
                 }
@@ -126,6 +127,10 @@ public class Interactable : MonoBehaviour
                         Singleton.Instance.isMovementEnabled = false;
                         gameOverPanel.SetActive(true);
                         // TODO: İlaçları bulup oyunu kazanınca yaratıkların hareketi durmalı, Zone'dayken damage almamalı?
+                    }
+                    else
+                    {
+                        SingletonMusic.Instance.PlaySFX("grab_SFX");
                     }
                 }
             }

@@ -17,6 +17,8 @@ public class SingletonMusic : MonoBehaviour
     [SerializeField] AudioClip aiDeath_SFX;
     [SerializeField] AudioClip teleport1_SFX;
     [SerializeField] AudioClip teleport2_SFX;
+    [SerializeField] AudioClip grab_SFX;
+    [SerializeField] AudioClip health_SFX;
 
     private void Awake()
     {
@@ -68,6 +70,14 @@ public class SingletonMusic : MonoBehaviour
         else if (sfx_name == "teleport2_SFX")
         {
             audioSource1.PlayOneShot(teleport2_SFX);
+        }
+        else if (sfx_name == "grab_SFX")
+        {
+            audioSource1.PlayOneShot(grab_SFX);
+        }
+        else if (sfx_name == "health_SFX")
+        {
+            audioSource1.PlayOneShot(health_SFX);
         }
     }
 

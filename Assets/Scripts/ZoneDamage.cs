@@ -118,7 +118,7 @@ public class ZoneDamage : MonoBehaviour
             gameOverPanel.SetActive(true);
         }
         slider.value = health;
-        bloodyScreen.DOFade((100 - health) / 100f, fadeDuration);
+        bloodyScreen.DOFade((GetMaxHealth() - health) / GetMaxHealth(), fadeDuration);
 
         if (isDamageFromZone)
         {
@@ -130,16 +130,16 @@ public class ZoneDamage : MonoBehaviour
     public void AddHealth(int healthAmount)
     {
         health += healthAmount;
-        if (health > 100) health = 100;
+        if (health > GetMaxHealth()) health = GetMaxHealth();
         slider.value = health;
-        bloodyScreen.DOFade((100 - health) / 100f, fadeDuration);
+        bloodyScreen.DOFade((GetMaxHealth() - health) / GetMaxHealth(), fadeDuration);
     }
 
     public void SetHealth(int healthAmount)
     {
         health = healthAmount;
         slider.value = health;
-        bloodyScreen.DOFade((100 - health) / 100f, 0);
+        bloodyScreen.DOFade((GetMaxHealth() - health) / GetMaxHealth(), 0);
     }
 
     private bool isTakingDamage = false;
