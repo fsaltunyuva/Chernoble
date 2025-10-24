@@ -30,27 +30,30 @@ public class ZoneDamage : MonoBehaviour
     [SerializeField] private GameObject glitchEffectC;
     [SerializeField] private GameObject glitchEffectD;
 
+    private Tween tween;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("greenZone"))
         {
-            glitchEffectA.GetComponent<Image>().DOFade(1, 1.5f);
-            SingletonMusic.Instance.PlayRadioactiveSFX();
+            // Completes the tween without waiting and kills it
+            tween.Kill(true);
+            tween = glitchEffectA.GetComponent<Image>().DOFade(1, 1.5f);
         }
         else if (other.CompareTag("blueZone"))
         {
-            glitchEffectB.GetComponent<Image>().DOFade(1, 1.5f);
-            SingletonMusic.Instance.PlayRadioactiveSFX();
+            tween.Kill(true);
+            tween = glitchEffectB.GetComponent<Image>().DOFade(1, 1.5f);
         }
         else if (other.CompareTag("redZone"))
         {
-            glitchEffectC.GetComponent<Image>().DOFade(1, 1.5f);
-            SingletonMusic.Instance.PlayRadioactiveSFX();
+            tween.Kill(true);
+            tween = glitchEffectC.GetComponent<Image>().DOFade(1, 1.5f);
         }
         else if (other.CompareTag("purpleZone"))
         {
-            glitchEffectD.GetComponent<Image>().DOFade(1, 1.5f);
-            SingletonMusic.Instance.PlayRadioactiveSFX();
+            tween.Kill(true);
+            tween = glitchEffectD.GetComponent<Image>().DOFade(1, 1.5f);
         }
     }
 
@@ -58,25 +61,25 @@ public class ZoneDamage : MonoBehaviour
     {
         if (other.CompareTag("greenZone"))
         {
+            SingletonMusic.Instance.PlayRadioactiveSFX();
             ApplyZoneDamage(healthDecreaseMultiplier1, Color.green);
-            // glitchEffectA.GetComponent<Image>().DOFade(1, 1.5f);
             // SetGlitchFade(glitchEffectA, 1f, 0.6f); // fade-in
         }
         else if (other.CompareTag("blueZone"))
         {
-            // glitchEffectB.GetComponent<Image>().DOFade(1, 1.5f);
+            SingletonMusic.Instance.PlayRadioactiveSFX();
             ApplyZoneDamage(healthDecreaseMultiplier2, Color.blue);
             // SetGlitchFade(glitchEffectB, 1f, 0.6f);
         }
         else if (other.CompareTag("redZone"))
         {
-            // glitchEffectC.GetComponent<Image>().DOFade(1, 1.5f);
+            SingletonMusic.Instance.PlayRadioactiveSFX();
             ApplyZoneDamage(healthDecreaseMultiplier3, Color.red);
             // SetGlitchFade(glitchEffectC, 1f, 0.6f);
         }
         else if (other.CompareTag("purpleZone"))
         {
-            // glitchEffectD.GetComponent<Image>().DOFade(1, 1.5f);
+            SingletonMusic.Instance.PlayRadioactiveSFX();
             ApplyZoneDamage(healthDecreaseMultiplier4, new Color(0.5f, 0f, 0.5f));
             // SetGlitchFade(glitchEffectD, 1f, 0.6f);
         }
@@ -86,17 +89,29 @@ public class ZoneDamage : MonoBehaviour
             PlayDamageFeedback();
         }
     }
-    
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("greenZone"))
-            glitchEffectA.GetComponent<Image>().DOFade(0, 1f);
+        {
+            tween.Kill(true);
+            tween = glitchEffectA.GetComponent<Image>().DOFade(0, 1.5f);
+        }
         else if (other.CompareTag("blueZone"))
-            glitchEffectB.GetComponent<Image>().DOFade(0, 1f);
+        {
+            tween.Kill(true);
+            tween = glitchEffectB.GetComponent<Image>().DOFade(0, 1f);
+        }
         else if (other.CompareTag("redZone"))
-            glitchEffectC.GetComponent<Image>().DOFade(0, 1f);
+        {
+            tween.Kill(true);
+            tween = glitchEffectC.GetComponent<Image>().DOFade(0, 1f);
+        }
         else if (other.CompareTag("purpleZone"))
-            glitchEffectD.GetComponent<Image>().DOFade(0, 1f);
+        {
+            tween.Kill(true);
+            tween = glitchEffectD.GetComponent<Image>().DOFade(0, 1f);
+        }
 
         radiationText.text = "0";
         radiationText.color = new Color(254, 210, 0);
@@ -107,7 +122,6 @@ public class ZoneDamage : MonoBehaviour
             SingletonMusic.Instance.StopRadioactiveSFX();
         }
     }
-
 
     private void ApplyZoneDamage(float amount, Color color, bool isDamageFromZone = true)
     {
@@ -154,7 +168,7 @@ public class ZoneDamage : MonoBehaviour
             Color originalColor = playerSprite.color;
             Color flashColor = new Color(1f, 0.4f, 0.4f, 1f); // soluk kırmızı
             playerSprite.color = flashColor;
-            DOVirtual.DelayedCall(0.15f, () => 
+            DOVirtual.DelayedCall(0.15f, () =>
             {
                 playerSprite.color = originalColor;
                 isTakingDamage = false;
@@ -173,12 +187,12 @@ public class ZoneDamage : MonoBehaviour
         slider.maxValue = value;
         slider.value = health;
     }
-    
+
     public int GetMaxHealth()
     {
-        return (int) slider.maxValue;
+        return (int)slider.maxValue;
     }
-    
+
     private void SetGlitchFade(GameObject glitchObj, float targetAlpha, float duration)
     {
         SpriteRenderer sr = glitchObj.GetComponent<SpriteRenderer>();
@@ -189,7 +203,7 @@ public class ZoneDamage : MonoBehaviour
             glitchObj.SetActive(true);
             Debug.Log("glitchObj active");
         }
-        
+
         // Fade animasyonu başlat
         sr.DOFade(targetAlpha, duration)
             .SetEase(Ease.InOutSine)
@@ -201,5 +215,5 @@ public class ZoneDamage : MonoBehaviour
             });
     }
 
-    
+
 }

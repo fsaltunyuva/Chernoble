@@ -19,6 +19,8 @@ public class SingletonMusic : MonoBehaviour
     [SerializeField] AudioClip teleport2_SFX;
     [SerializeField] AudioClip grab_SFX;
     [SerializeField] AudioClip health_SFX;
+    [SerializeField] AudioClip purchase_SFX;
+    [SerializeField] AudioClip denied_SFX;
 
     private void Awake()
     {
@@ -79,11 +81,20 @@ public class SingletonMusic : MonoBehaviour
         {
             audioSource1.PlayOneShot(health_SFX);
         }
+        else if (sfx_name == "purchase_SFX")
+        {
+            audioSource1.PlayOneShot(purchase_SFX);
+        }
+        else if (sfx_name == "denied_SFX")
+        {
+            audioSource1.PlayOneShot(denied_SFX);
+        }
     }
 
     public void PlayRadioactiveSFX()
     {
-        audioSource2.Play();
+        if (!audioSource2.isPlaying)
+            audioSource2.Play();
     }
 
     public void StopRadioactiveSFX()

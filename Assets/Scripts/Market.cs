@@ -45,7 +45,7 @@ public class Market : MonoBehaviour
                         break;
                     case ItemType.Health:
                         _zoneDamageScript.SetMaxHealth(increasedHealthAmount);
-                        break; 
+                        break;
                     case ItemType.Light:
                         playerLight.pointLightOuterRadius = increasedLightRadius;
                         playerLight.intensity = increasedLightIntensity;
@@ -68,7 +68,12 @@ public class Market : MonoBehaviour
                 Singleton.Instance.SpendCurrency(selectedItem.cost);
                 selectedButton.GetComponent<Button>().interactable = false;
                 // Play one shot sound effect for successful purchase
-                AudioSource.PlayClipAtPoint(purchaseSoundEffect, Camera.main.transform.position);
+                // AudioSource.PlayClipAtPoint(purchaseSoundEffect, Camera.main.transform.position);
+                SingletonMusic.Instance.PlaySFX("purchase_SFX");
+            }
+            else
+            {
+                SingletonMusic.Instance.PlaySFX("denied_SFX");
             }
         }
     }
