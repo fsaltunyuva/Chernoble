@@ -40,8 +40,9 @@ public class Market : MonoBehaviour
                         break;
                     case ItemType.Gun:
                         Singleton.Instance.playerDamage = 20;
-                        playerScript.UpgradeToAK47();
-                        playerAimWeaponScript.UpgradeToAK47();
+                        // playerScript.UpgradeToAK47();
+                        // playerAimWeaponScript.UpgradeToAK47();
+                        Singleton.Instance.isPlayerUpgradedGun = true;
                         break;
                     case ItemType.Health:
                         _zoneDamageScript.SetMaxHealth(increasedHealthAmount);

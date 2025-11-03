@@ -73,7 +73,7 @@ public class PlayerAimWeapon : MonoBehaviour
                 ShootBullet();
                 SingletonMusic.Instance.PlaySFX("glock_SFX");
             }
-            else if (!Singleton.Instance.IsThereEnoughAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.Glock)
+            else if (!Singleton.Instance.IsThereEnoughAmmo(1) && (Singleton.Instance.currentWeapon == WeaponType.Glock || Singleton.Instance.currentWeapon == WeaponType.AK47))
             {
                 SingletonMusic.Instance.PlaySFX("noAmmo_SFX");
             }
@@ -82,9 +82,15 @@ public class PlayerAimWeapon : MonoBehaviour
                 ShootFlare();
                 SingletonMusic.Instance.PlaySFX("flaregunIgnition_SFX");
             }
-            else if(!Singleton.Instance.IsThereEnoughFlareAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.FlareGun)
+            else if (!Singleton.Instance.IsThereEnoughFlareAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.FlareGun)
             {
                 SingletonMusic.Instance.PlaySFX("noAmmo_SFX");
+            }
+            else if (Singleton.Instance.IsThereEnoughAmmo(1) && Singleton.Instance.currentWeapon == WeaponType.AK47)
+            {
+                animator.CrossFadeInFixedTime("AK47 Shot Animation", 0f);
+                ShootBullet();
+                SingletonMusic.Instance.PlaySFX("ak47_SFX");
             }
         }
     }
@@ -113,11 +119,11 @@ public class PlayerAimWeapon : MonoBehaviour
         }
     }
     
-    public void UpgradeToAK47()
-    {
-        // Singleton.Instance.currentWeapon = WeaponType.AK47;
+    // public void UpgradeToAK47()
+    // {
+    //     // Singleton.Instance.currentWeapon = WeaponType.AK47;
         
-        firePoint = ak47FirePoint;
-        aimTransform = ak47aimTransform;
-    }
+    //     firePoint = ak47FirePoint;
+    //     aimTransform = ak47aimTransform;
+    // }
 }

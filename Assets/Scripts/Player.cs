@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private float speed;
-    
+
     // Can be used for more maps
     // TODO: Move them to Interactable.cs
     [SerializeField] public Transform rightSpawnPoint;
@@ -21,16 +21,17 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject gun;
     [SerializeField] private GameObject arm;
-    
+
     public bool isPlayerInGunMode = false;
-    
+
     [SerializeField] private Sprite FlareGunSprite;
     [SerializeField] private Sprite GlockGunSprite;
     [SerializeField] private SpriteRenderer gunSpriteRenderer;
-    
+    [SerializeField] private Sprite AK47Sprite;
+
     [SerializeField] private GameObject ak47gun;
     [SerializeField] private GameObject ak47arm;
-    
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
         //         break;
         // }
     }
-    
+
     void Update()
     {
         if (!Singleton.Instance.isMovementEnabled)
@@ -66,17 +67,25 @@ public class Player : MonoBehaviour
         {
             _movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
-        
+
         if (Input.GetMouseButton(1)) // Holding right mouse button
         {
             Singleton.Instance.isMovementEnabled = false;
-            Singleton.Instance.currentWeapon = WeaponType.Glock;
+            if (Singleton.Instance.isPlayerUpgradedGun)
+            {
+                Singleton.Instance.currentWeapon = WeaponType.AK47;
+                gunSpriteRenderer.sprite = AK47Sprite;
+            }
+            else
+            {
+                Singleton.Instance.currentWeapon = WeaponType.Glock;
+                gunSpriteRenderer.sprite = GlockGunSprite;
+            }
             _animator.SetBool("gun", true);
-            gunSpriteRenderer.sprite = GlockGunSprite;
             gun.SetActive(true);
             isPlayerInGunMode = true;
         }
-        
+
         if (Input.GetMouseButtonUp(1)) // Releasing right mouse button
         {
             Singleton.Instance.isMovementEnabled = true;
@@ -84,7 +93,7 @@ public class Player : MonoBehaviour
             gun.SetActive(false);
             isPlayerInGunMode = false;
         }
-        
+
         if (Input.GetMouseButton(2)) // Holding middle mouse button
         {
             if (Singleton.Instance.isPlayerBoughtFlareGun)
@@ -97,7 +106,7 @@ public class Player : MonoBehaviour
                 isPlayerInGunMode = true;
             }
         }
-        
+
         if (Input.GetMouseButtonUp(2)) // Releasing middle mouse button
         {
             if (Singleton.Instance.isPlayerBoughtFlareGun)
@@ -110,7 +119,7 @@ public class Player : MonoBehaviour
         }
 
         FlipSprite(_movement.x);
-        
+
         if (_movement == Vector2.zero)
         {
             _animator.SetBool("run", false);
@@ -120,7 +129,7 @@ public class Player : MonoBehaviour
             _animator.SetBool("run", true);
         }
     }
-    
+
     // private void FlipSprite()
     // {
     //     if (_movement.x > 0)

@@ -8,6 +8,7 @@ public class SingletonMusic : MonoBehaviour
     [SerializeField] AudioSource audioSource2;
 
     [SerializeField] AudioClip glock_SFX;
+    [SerializeField] AudioClip ak47_SFX;
     [SerializeField] AudioClip noAmmo_SFX;
     [SerializeField] AudioClip flaregunIgnition_SFX;
 
@@ -40,6 +41,10 @@ public class SingletonMusic : MonoBehaviour
         if (sfx_name == "glock_SFX")
         {
             audioSource1.PlayOneShot(glock_SFX);
+        }
+        else if (sfx_name == "ak47_SFX")
+        {
+            audioSource1.PlayOneShot(ak47_SFX);
         }
         else if (sfx_name == "noAmmo_SFX")
         {

@@ -92,6 +92,7 @@ public class ZoneDamage : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        SingletonMusic.Instance.StopRadioactiveSFX();
         if (other.CompareTag("greenZone"))
         {
             tween.Kill(true);
@@ -119,7 +120,6 @@ public class ZoneDamage : MonoBehaviour
         {
             radiationText.text = "0";
             radiationText.color = new Color(254, 210, 0);
-            SingletonMusic.Instance.StopRadioactiveSFX();
         }
     }
 

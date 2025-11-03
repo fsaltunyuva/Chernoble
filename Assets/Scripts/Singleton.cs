@@ -13,12 +13,13 @@ public enum SpawnPoint
 public enum WeaponType
 {
     Glock,
-    FlareGun
+    FlareGun,
+    AK47
 }
 public class Singleton : MonoBehaviour
 {
     public static Singleton Instance { get; private set; } // This is the instance of the Singleton class.
-    
+
     [SerializeField] public int currency;
     [SerializeField] public int gunAmmo;
     [SerializeField] public int flareAmmo;
@@ -32,10 +33,11 @@ public class Singleton : MonoBehaviour
     public bool isMarketCanvasOn = false;
     public WeaponType currentWeapon = WeaponType.Glock;
     public int playerDamage = 10;
-    
-    public bool isPlayerBoughtFlareGun = false;
 
-    private void Awake() 
+    public bool isPlayerBoughtFlareGun = false;
+    public bool isPlayerUpgradedGun = false;
+
+    private void Awake()
     {
         // TODO: Uncomment this if you add new scenes to the game.
         // if (Instance != null && Instance != this) // If there is an instance, and it's not me, delete myself. 
@@ -61,7 +63,7 @@ public class Singleton : MonoBehaviour
         currency += amount;
         currencyText.text = currency.ToString();
     }
-    
+
     public bool SpendCurrency(int amount)
     {
         if (currency >= amount)
@@ -72,7 +74,7 @@ public class Singleton : MonoBehaviour
         }
         return false;
     }
-    
+
     public bool AddAmmo(int amount)
     {
         if (gunAmmo + amount <= maxAmmo)
@@ -83,7 +85,7 @@ public class Singleton : MonoBehaviour
         }
         return false;
     }
-    
+
     public bool SpendAmmo(int amount, bool isFlareAmmo = false)
     {
         if (isFlareAmmo)
@@ -96,7 +98,7 @@ public class Singleton : MonoBehaviour
             }
             return false;
         }
-        
+
         // Normal gun ammo spending
         if (gunAmmo >= amount)
         {
@@ -106,7 +108,7 @@ public class Singleton : MonoBehaviour
         }
         return false;
     }
-    
+
     public void UpdateAmmoText()
     {
         ammoText.text = gunAmmo.ToString();
@@ -116,7 +118,7 @@ public class Singleton : MonoBehaviour
     {
         return gunAmmo >= amount;
     }
-    
+
     public bool IsThereEnoughFlareAmmo(int amount)
     {
         return flareAmmo >= amount;
